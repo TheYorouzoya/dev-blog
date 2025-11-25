@@ -19,3 +19,7 @@ def index(request):
 def article(request, article_slug):
     article = get_object_or_404(Article, slug=article_slug)
     return render(request, "blog/article.html", {"article": article})
+
+
+def write(request):
+    return render(request, "blog/write.html")
