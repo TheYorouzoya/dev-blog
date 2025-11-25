@@ -1,0 +1,10 @@
+{% extends 'blog/layout.html' %}
+{% load static %}
+
+{% block body %}
+<article>
+    <h1 class="article-title">{{ article.title }}</h1>
+    <div class="article-content">{{ article.content }}</div>
+    <div class="author">{{ article.author.name }}</div>
+</article>
+{% endblock %}
