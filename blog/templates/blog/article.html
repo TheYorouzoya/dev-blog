@@ -1,10 +1,19 @@
 {% extends 'blog/layout.html' %}
 {% load static %}
 
+{% block css %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet">
+    <link href="{% static 'blog/css/article.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
-<article>
+<article id="article">
     <h1 class="article-title">{{ article.title }}</h1>
-    <div class="article-content">{{ article.content }}</div>
+    <div class="article-content">{{ article.content | safe }}</div>
     <div class="author">{{ article.author.name }}</div>
 </article>
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 {% endblock %}

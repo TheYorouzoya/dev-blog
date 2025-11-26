@@ -1,0 +1,17 @@
+#article {
+    min-width: 400px;
+
+    .ql-code-block-container {
+        background-color: var(--bg-light);
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .ql-code-block-container .ql-ui {
+        display: none;
+    }
+
+    .ql-align-right {
+        text-align: right;
+    }
+}

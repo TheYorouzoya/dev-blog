@@ -39,7 +39,7 @@ nav {
 body {
     margin-top: 75px;
     background-color: var(--bg);
-    color: white;
+    color: var(--text);
 }
 
 .blog-container {

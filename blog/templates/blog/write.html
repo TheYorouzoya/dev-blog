@@ -3,17 +3,26 @@
 
 {% block css %}
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet">
     <link href="{% static 'blog/css/write.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block body%}
-<div id="editor-container">
-        <input type="text" id="title">
-        <div id="editor"></div>
+    <div id="editor-container">
+        <h2 class="editor-heading">Write A New Article</h2>
+        <form method="post" id="article-form">
+            {% csrf_token %}
+            {{ form }}
+            <div id="editor">
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
     </div>
 {% endblock %}
 
 {% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script src="{% static 'blog/js/write.js' %}"></script>
 {% endblock %}

@@ -12,15 +12,29 @@ document.addEventListener('DOMContentLoaded', () => {
         [{ 'direction': 'rtl' }],                         // text direction
 
         [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-        [{ 'font': [] }],
         [{ 'align': [] }],
 
         ['clean']                                         // remove formatting button
     ];
     const quill = new Quill('#editor', {
         modules: {
+            syntax: true,
             toolbar: toolbarOptions
         },
         theme: 'snow',
     });
+
+    const editorContent = document.getElementById('id_content');
+    if (editorContent.value) {
+        quill.root.innerHTML = editorContent.value;
+    }
+
+    document.querySelector('form#article-form').onsubmit = () => {
+        var content = document.getElementById('id_content');
+        content.value = quill.root.innerHTML;
+
+        var excerpt = document.getElementById('id_excerpt');
+        const EXCERPT_LENGTH = 196;
+        excerpt.value = quill.getText().slice(0, EXCERPT_LENGTH) + '...'; 
+    };
 })

@@ -33,10 +33,10 @@ class Article(models.Model):
         SCHEDULED = "SC", _("Scheduled")
         PUBLISHED = "PU", _("Published")
 
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=255, unique=True)
     content = models.TextField()
-    excerpt = models.TextField(max_length=300, blank=True)
+    excerpt = models.TextField(max_length=200, blank=True)
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
     tags = models.ManyToManyField(Tag, blank=True)
     status = models.CharField(max_length=2, choices=Status, default=Status.DRAFT)
@@ -56,11 +56,22 @@ class Article(models.Model):
 
     def save(self, *args, **kwargs):
         """
+        Auto-generate unique slug based on title
         Auto-update status based on published_at date
         """
+        if not self.slug:
+            base_slug = slugify(self.title)
+            unique_slug = base_slug
+            count = 1
+            while Article.objects.filter(slug=unique_slug).exists():
+                unique_slug = f"{base_slug}-{count}"
+                count += 1
+            self.slug = unique_slug
+
         if self.status == Article.Status.SCHEDULED and self.published_at:
             if timezone.now() >= self.published_at:
                 self.status = Article.Status.PUBLISHED
+        
         super().save(*args, **kwargs)
 
     def is_published(self):

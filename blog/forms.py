@@ -1,0 +1,24 @@
+from datetime import datetime
+
+from django import forms
+
+from .models import Article, Topic, Tag
+
+class Html5DateInput(forms.DateInput):
+    input_type = 'date'
+
+class ArticleForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ['title', 'status', 'topic', 'tags', 'published_at', 'content', 'excerpt']
+        widgets = {
+            'published_at': Html5DateInput,
+            'content': forms.HiddenInput,
+            'excerpt': forms.HiddenInput,
+        }
+
+    def clean_published_at(self):
+        published_at = self.cleaned_data['published_at']
+        if published_at.date() < datetime.now().date():
+            raise forms.ValidationError("Publish date cannot be in the past!")
+        return published_at
