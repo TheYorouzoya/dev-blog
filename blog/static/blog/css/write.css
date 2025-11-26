@@ -1,0 +1,46 @@
+#editor-container {
+    min-width: 500px;
+
+    .ql-toolbar .ql-stroke {
+        stroke: var(--text) !important;
+    }
+
+    .ql-toolbar .ql-fill {
+        fill: var(--text) !important;
+    }
+
+    .ql-toolbar .ql-picker {
+        color: var(--text) !important;
+    }
+
+    .ql-picker-label:hover {
+        color: var(--accent) !important;
+    }
+
+    button:hover .ql-stroke,
+    .ql-picker-label:hover .ql-stroke {
+        stroke: var(--accent) !important;
+    }
+
+    .ql-active .ql-stroke {
+        stroke: var(--accent) !important;
+    }
+
+    button:hover .ql-fill,
+    .ql-picker-label:hover .ql-fill {
+        fill: var(--accent) !important;
+    }
+
+    .ql-active .ql-fill {
+        fill: var(--accent) !important;
+    }
+
+    .ql-picker-options {
+        background: var(--bg);
+    }
+
+    .ql-picker-item:hover,
+    .ql-selected {
+        color: var(--accent) !important;
+    }
+}

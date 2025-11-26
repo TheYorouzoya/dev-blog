@@ -2,17 +2,18 @@
 {% load static %}
 
 {% block css %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
-    {% endblock %}
-    
-    {% block body%}
-    <form action="{% url 'blog:write' %}" method="post" class="article-form">
-        <input type="text" name="Title" id="form-title">
-        <textarea name="blog-editor" id="editor">Write article here...</textarea>
-    </form>
-    {% endblock %}
-    
-    {% block script %}
-    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+    <link href="{% static 'blog/css/write.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body%}
+<div id="editor-container">
+        <input type="text" id="title">
+        <div id="editor"></div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script src="{% static 'blog/js/write.js' %}"></script>
 {% endblock %}
