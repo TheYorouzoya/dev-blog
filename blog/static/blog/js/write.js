@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         content.value = quill.root.innerHTML;
 
         var excerpt = document.getElementById('id_excerpt');
-        const EXCERPT_LENGTH = 196;
+        const EXCERPT_LENGTH = 194;
         excerpt.value = quill.getText().slice(0, EXCERPT_LENGTH) + '...'; 
     };
 })
