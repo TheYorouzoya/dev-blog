@@ -9,6 +9,7 @@
 {% block body %}
 <article id="article">
     <h1 class="article-title">{{ article.title }}</h1>
+    <a href="{% url 'blog:edit' article.slug %}">Edit</a>
     <div class="article-content">{{ article.content | safe }}</div>
     <div class="author">{{ article.author.name }}</div>
 </article>

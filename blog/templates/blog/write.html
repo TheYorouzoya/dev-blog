@@ -9,14 +9,14 @@
 
 {% block body%}
     <div id="editor-container">
-        <h2 class="editor-heading">Write A New Article</h2>
+        <h2 class="editor-heading">{{ is_edit|yesno:"Edit Article,Write A New Article" }}</h2>
         <form method="post" id="article-form">
             {% csrf_token %}
             {{ form }}
             <div id="editor">
             </div>
 
-            <button type="submit">Submit</button>
+            <button type="submit">{{ is_edit|yesno:"Update Article,Publish Article" }}</button>
         </form>
     </div>
 {% endblock %}

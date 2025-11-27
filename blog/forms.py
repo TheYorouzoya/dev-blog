@@ -19,6 +19,17 @@ class ArticleForm(forms.ModelForm):
 
     def clean_published_at(self):
         published_at = self.cleaned_data['published_at']
-        if published_at.date() < datetime.now().date():
+        status = self.cleaned_data['status']
+
+        # during editing
+        if self.instance and self.instance.pk:
+            if status == Article.Status.PUBLISHED:
+                original_date = self.instance.published_at
+                if published_at.date() < original_date.date():
+                    raise forms.ValidationError("Publish date cannot be in the past!")
+            return published_at
+
+        # during creation
+        if status == Article.Status.PUBLISHED and published_at.date() < datetime.now().date():
             raise forms.ValidationError("Publish date cannot be in the past!")
         return published_at

@@ -1,5 +1,6 @@
 #article {
     min-width: 400px;
+    max-width: 1000px;
 
     .ql-code-block-container {
         background-color: var(--bg-light);
@@ -13,5 +14,10 @@
 
     .ql-align-right {
         text-align: right;
+    }
+
+    a {
+        text-decoration: inherit;
+        color: var(--accent);
     }
 }

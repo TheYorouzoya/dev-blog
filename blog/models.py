@@ -40,7 +40,7 @@ class Article(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
     tags = models.ManyToManyField(Tag, blank=True)
     status = models.CharField(max_length=2, choices=Status, default=Status.DRAFT)
-    featured_image = models.ImageField(upload_to='uploads/images/', blank=True)
+    featured_image = models.ImageField(upload_to='media/images/', blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

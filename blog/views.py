@@ -19,8 +19,29 @@ def index(request):
 
 
 def article(request, article_slug):
-    article = get_object_or_404(Article, slug=article_slug)
+    if not request.user.is_authenticated:
+        article = get_object_or_404(Article, slug=article_slug, status=Article.Status.PUBLISHED)
+    else:
+        article = get_object_or_404(Article, slug=article_slug)
     return render(request, "blog/article.html", {"article": article})
+
+
+def edit(request, article_slug):
+    if not request.user.is_authenticated:
+        return Http404("Page does not exist")
+    
+    article = get_object_or_404(Article, slug=article_slug)
+    
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            article = form.save()
+            return redirect('blog:article', article_slug=article.slug)
+    else:
+        form = ArticleForm(instance=article)
+    
+    return render(request, 'blog/write.html', { "form": form, "is_edit": True})
+
 
 
 def write(request):
@@ -38,4 +59,4 @@ def write(request):
             return redirect('blog:article', article_slug=article.slug)
     else:
         form = ArticleForm()
-    return render(request, "blog/write.html", { "form": form })
+    return render(request, "blog/write.html", { "form": form, "is_edit": False })
