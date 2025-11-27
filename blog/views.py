@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.core.paginator import Paginator, EmptyPage
 
 from .models import Article
 from .forms import ArticleForm
+
 
 def index(request):
     ARTICLES_PER_PAGE = 10
@@ -35,28 +36,54 @@ def edit(request, article_slug):
     if request.method == 'POST':
         form = ArticleForm(request.POST, instance=article)
         if form.is_valid():
-            article = form.save()
-            return redirect('blog:article', article_slug=article.slug)
+            updated_article = form.save()
+            return redirect('blog:article', article_slug=updated_article.slug)
     else:
         form = ArticleForm(instance=article)
     
     return render(request, 'blog/write.html', { "form": form, "is_edit": True})
 
 
+def drafts(request, article_id):
+    if not request.user.is_authenticated:
+        return Http404("Page does not exist")
+
+    article = get_object_or_404(Article, pk=article_id, status=Article.Status.DRAFT)
+
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            new_article = form.save()
+            return redirect('blog:article', article_slug=new_article.slug)
+    
+    if request.method == 'DELETE':
+        article.delete()
+        return redirect('index')
+
+    form = ArticleForm(instance=article)
+    return render(request, 'blog/write.html', { "form": form, "is_edit": False })
+
+
+def autosave(request, article_id):
+    if not request.user.is_authenticated:
+        return Http404("Page does not exist")
+    
+    article = get_object_or_404(Article, pk=article_id)
+
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance=article)
+        updated_article = form.save(commit=False)
+        updated_article.save(update_fields=form.changed_data)
+
+        return JsonResponse({"message": "Draft autosaved"})
+
 
 def write(request):
     if not request.user.is_authenticated:
         return Http404("Page does not exist")
     
-    if request.method == 'POST':
-        form = ArticleForm(request.POST)
-        if form.is_valid():
-            article = form.save(commit=False)
-            article.author = request.user
-            article.save()
-            form.save_m2m()
-
-            return redirect('blog:article', article_slug=article.slug)
-    else:
-        form = ArticleForm()
-    return render(request, "blog/write.html", { "form": form, "is_edit": False })
+    article_draft = Article(author=request.user)
+    article_draft.status = Article.Status.DRAFT
+    article_draft.save()
+    
+    return redirect('blog:drafts', article_id=article_draft.id)
