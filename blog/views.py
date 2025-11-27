@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, JsonResponse
 from django.core.paginator import Paginator, EmptyPage
@@ -41,7 +43,7 @@ def edit(request, article_slug):
     else:
         form = ArticleForm(instance=article)
     
-    return render(request, 'blog/write.html', { "form": form, "is_edit": True})
+    return render(request, 'blog/write.html', { "form": form, "is_edit": True, "article_id": article.id })
 
 
 def drafts(request, article_id):
@@ -61,7 +63,7 @@ def drafts(request, article_id):
         return redirect('index')
 
     form = ArticleForm(instance=article)
-    return render(request, 'blog/write.html', { "form": form, "is_edit": False })
+    return render(request, 'blog/write.html', { "form": form, "is_edit": False, "article_id": article_id })
 
 
 def autosave(request, article_id):
@@ -71,9 +73,16 @@ def autosave(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
 
     if request.method == 'POST':
-        form = ArticleForm(request.POST, instance=article)
-        updated_article = form.save(commit=False)
-        updated_article.save(update_fields=form.changed_data)
+        data = json.loads(request.body)
+        updated_title = data['title']
+        updated_content = data['content']
+        updated_excerpt = data['excerpt']
+
+        article.title = updated_title
+        article.content = updated_content
+        article.excerpt = updated_excerpt
+
+        article.save()
 
         return JsonResponse({"message": "Draft autosaved"})
 
