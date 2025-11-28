@@ -47,10 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const excerpt = document.getElementById('id_excerpt').value;
         const csrfToken = getCookie('csrftoken');
         
-        fetch(`/drafts/${articleId}/autosave/`, {
+        fetch(`autosave/`, {
             method: 'POST',
             body: JSON.stringify(
                 {
+                    id: articleId,
                     title: title,
                     content: content,
                     excerpt: excerpt,
