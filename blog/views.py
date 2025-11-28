@@ -5,7 +5,7 @@ from django.http import Http404, JsonResponse
 from django.core.paginator import Paginator, EmptyPage
 
 from .models import Article
-from .forms import ArticleForm
+from .forms import ArticleForm, ArticleImageForm
 
 
 def index(request):
@@ -19,6 +19,22 @@ def index(request):
     except EmptyPage as e:
         return render(request, 'blog/index.html', {"message": str(e)})
     return render(request, 'blog/index.html', {"page_obj": page_obj})
+
+
+def dashboard(request):
+    if not request.user.is_authenticated:
+        raise Http404("Page does not exist")
+    
+    ARTICLES_PER_PAGE = 15
+    page_number = request.GET.get('page', 1)
+    articles = Article.objects.all()
+    paginator = Paginator(articles, ARTICLES_PER_PAGE)
+
+    try:
+        page_obj = paginator.page(page_number)
+    except EmptyPage as e:
+        return render(request, 'blog/dashboard.html', {"message": str(e)})
+    return render(request, 'blog/dashboard.html', {"page_obj": page_obj})
 
 
 def article(request, article_slug):
@@ -102,3 +118,15 @@ def write(request):
     article_draft.save()
     
     return redirect('blog:draft', article_id=article_draft.id)
+
+
+def upload_image(request):
+    if request.method != 'POST':
+        return JsonResponse({"message:" "Method not allowed"}, status=405)
+    
+    form = ArticleImageForm(request.POST, request.FILES)
+    if form.is_valid():
+        saved_image = form.save()
+        return JsonResponse({"message": "Image uploaded successfully!", "url": saved_image.image.url})
+
+    return JsonResponse({"message": "Image upload failed."})

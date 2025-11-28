@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django import forms
 
-from .models import Article, Topic, Tag
+from .models import Article, ArticleImage
 
 class Html5DateInput(forms.DateInput):
     input_type = 'date'
@@ -33,3 +33,9 @@ class ArticleForm(forms.ModelForm):
         if status == Article.Status.PUBLISHED and published_at.date() < datetime.now().date():
             raise forms.ValidationError("Publish date cannot be in the past!")
         return published_at
+    
+
+class ArticleImageForm(forms.ModelForm):
+    class Meta:
+        model = ArticleImage
+        fields = ['article', 'image']

@@ -12,6 +12,9 @@
     <body>
         <nav class="blog-navbar">
             <a href="{% url 'blog:index' %}">Home</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'blog:dashboard' %}">Dashboard</a>
+            {% endif %}
         </nav>
         <main class="blog-container">
             {% block body %}

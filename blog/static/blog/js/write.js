@@ -29,25 +29,27 @@ document.addEventListener('DOMContentLoaded', () => {
         quill.root.innerHTML = editorContent.value;
     }
 
-    document.querySelector('form#article-form').onsubmit = () => {
+    const articleId = document.querySelector('form#article-form').dataset.articleId;
+
+    document.querySelector('form#article-form').onsubmit = async () => {
+        await uploadImages(articleId);
         saveContent();
         saveExcerpt();
+        
     };
 
     const saveButton = document.getElementById('save-article');
-    saveButton.onclick = () => {
-        const form = document.querySelector('form#article-form');
-        
+    saveButton.onclick = async () => {
+        await uploadImages(articleId);
         saveContent();
         saveExcerpt();
         
-        const articleId = form.dataset.articleId;
         const title = document.getElementById('id_title').value;
         const content = document.getElementById('id_content').value;
         const excerpt = document.getElementById('id_excerpt').value;
         const csrfToken = getCookie('csrftoken');
         
-        fetch(`autosave/`, {
+        fetch(`/autosave/`, {
             method: 'POST',
             body: JSON.stringify(
                 {
@@ -76,18 +78,100 @@ document.addEventListener('DOMContentLoaded', () => {
         excerpt.value = quill.getText().slice(0, EXCERPT_LENGTH) + '...'; 
     }
 
-    const getCookie = (name) => {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
+    const uploadImages = async (article_id) => {
+        const imgs = Array.from(
+            quill.container.querySelectorAll('img[src^="data:"]')
+        );
+
+        const uploadPromises = imgs.map(img =>
+            uploadBase64Img(img.getAttribute("src"), article_id)
+                .then(url => ({ img, url }))
+        )
+
+        const results = await Promise.all(uploadPromises);
+
+        results.forEach(({ img, url }) => {
+            img.setAttribute("src", url);
+        })
     }
 })
+
+
+/**
+ * Convert the Base64 image encoding to a blob and upload to server.
+ * Code is from: https://ourcodeworld.com/articles/read/322/how-to-convert-a-base64-image-into-a-image-file-and-upload-it-with-an-asynchronous-form-using-jquery
+ */
+async function uploadBase64Img(base64Str, article_id) {
+    if (typeof base64Str !== 'string' || base64Str.length < 100) {
+        return base64Str;
+    }
+    const url = await b64ToUrl(base64Str, article_id);
+    return url;
+}
+
+
+function b64ToBlob(b64Data, contentType, sliceSize) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+
+    // decode Base64 string
+    var byteCharacters = atob(b64Data);
+    var byteArrays = [];
+
+    // slice into chunks
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        var byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        var byteArray = new Uint8Array(byteNumbers);
+
+        byteArrays.push(byteArray);
+    }
+
+    var blob = new Blob(byteArrays, {type: contentType});
+    return blob;
+}
+
+function b64ToUrl(base64Str, article_id) {
+    return new Promise(resolve => {
+        var block = base64Str.split(";");
+        var extension = block[0].split("/")[1];
+        var contentType = block[0].split(":")[1];
+        var imageData = block[1].split(",")[1];
+        var blob = b64ToBlob(imageData, contentType);
+        const csrfToken = getCookie('csrftoken');
+
+        const formData = new FormData();
+        formData.append('image', blob, `article-${article_id}.${extension}`);
+        formData.append('article', article_id);
+
+        fetch('/images/upload/', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': csrfToken
+            }
+        })
+        .then(response => response.json())
+        .then(data => resolve(data.url))
+    })
+}
+
+const getCookie = (name) => {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
