@@ -1,4 +1,8 @@
+import os
+
 from django.db import models
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.utils import timezone
@@ -92,3 +96,9 @@ class Article(models.Model):
 class ArticleImage(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/')
+
+@receiver(post_delete, sender=ArticleImage)
+def auto_delete_image_file_on_delete(sender, instance, **kwargs):
+    if instance.image:
+        if os.path.isfile(instance.image.path):
+            os.remove(instance.image.path)

@@ -17,7 +17,7 @@
     {% if page_obj %}
         {% for article in page_obj %}
             <article class="article-card">
-                <h2><a href="{% url 'blog:article' article.slug %}">{{ article.title }}</a></h2>
+                <h2><a href="{% url 'blog:articles' article.slug %}">{{ article.title }}</a></h2>
                 <div>{{ article.topic }}</div>
                 <div>{{ article.excerpt }}</div>
             </article>
