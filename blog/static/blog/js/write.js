@@ -68,8 +68,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     const saveContent = () => {
+        // copy editor content
         var content = document.getElementById('id_content');
         content.value = quill.root.innerHTML;
+
+        // process content for uploaded images
+        const imgs = content.querySelectorAll("img[data-article-image-id]");
+        const ids = Array.from(imgs).map(img => img.getAttribute("data-article-image-id"));
+        
+        document.querySelector("input[name='image_ids']").value = JSON.stringify(ids);
     }
 
     const saveExcerpt = () => {
@@ -85,13 +92,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const uploadPromises = imgs.map(img =>
             uploadBase64Img(img.getAttribute("src"), article_id)
-                .then(url => ({ img, url }))
+                .then(data => ({ img, data }))
         )
 
         const results = await Promise.all(uploadPromises);
 
-        results.forEach(({ img, url }) => {
-            img.setAttribute("src", url);
+        results.forEach(({ img, data }) => {
+            img.setAttribute("src", data.url);
+            img.setAttribute("data-article-image-id", data.id);
         })
     }
 })
@@ -157,7 +165,7 @@ function b64ToUrl(base64Str, article_id) {
             }
         })
         .then(response => response.json())
-        .then(data => resolve(data.url))
+        .then(data => resolve(data))
     })
 }
 

@@ -8,6 +8,8 @@ class Html5DateInput(forms.DateInput):
     input_type = 'date'
 
 class ArticleForm(forms.ModelForm):
+    image_ids = forms.CharField(widget=forms.HiddenInput, required=False)
+
     class Meta:
         model = Article
         fields = ['title', 'status', 'topic', 'tags', 'published_at', 'content', 'excerpt']
@@ -23,11 +25,11 @@ class ArticleForm(forms.ModelForm):
 
         # during editing
         if self.instance and self.instance.pk:
-            if status == Article.Status.PUBLISHED:
+            if status == Article.Status.SCHEDULED:
                 original_date = self.instance.published_at
                 if published_at.date() < original_date.date():
                     raise forms.ValidationError("Publish date cannot be in the past!")
-            return published_at
+                return published_at
 
         # during creation
         if status == Article.Status.PUBLISHED and published_at.date() < datetime.now().date():

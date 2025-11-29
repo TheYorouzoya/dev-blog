@@ -5,7 +5,7 @@ from django.http import Http404, JsonResponse
 from django.core.paginator import Paginator, EmptyPage
 from django.views.decorators.http import require_POST
 
-from .models import Article
+from .models import Article, ArticleImage
 from .forms import ArticleForm, ArticleImageForm
 
 
@@ -51,6 +51,12 @@ def _article_editor(request, article, is_draft=False):
         form = ArticleForm(request.POST, instance=article)
         if form.is_valid():
             updated_article = form.save()
+            json_ids = form.cleaned_data.get('image_ids') or "[]"
+            image_ids = set(json.loads(json_ids))
+
+            ArticleImage.objects.filter(article=article) \
+                                .exclude(id__in=image_ids).delete()
+
             return redirect('blog:articles', article_slug=updated_article.slug)
     elif request.method == 'DELETE':
         article.delete()
@@ -136,4 +142,5 @@ def upload_image(request):
         "success": True,
         "message": "Image uploaded successfully!", 
         "url": saved_image.image.url,
+        "id": saved_image.id,
     }, status=201)

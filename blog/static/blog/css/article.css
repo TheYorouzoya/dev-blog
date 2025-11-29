@@ -6,6 +6,8 @@
         background-color: var(--bg-light);
         padding: 15px;
         border-radius: 10px;
+        white-space: pre-wrap;
+        font-family: monospace;
     }
 
     .ql-code-block-container .ql-ui {
