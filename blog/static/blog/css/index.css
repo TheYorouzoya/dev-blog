@@ -1,6 +1,40 @@
+.intro {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 25px;
+
+    span {
+        font-size: 2rem;
+    }
+
+    h1 {
+        font-family: "Monoton", sans-serif;
+        font-weight: 200;
+        font-style: normal;
+        font-size: 5rem;
+        color: var(--accent);
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    span.intro-description {
+        max-width: 600px;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+}
+
+.hr-line {
+    width: 100%;
+    border-color: var(--accent);
+}
+
+
 .article-card {
     a {
         text-decoration: inherit;
         color: var(--accent);
     }
 }
+

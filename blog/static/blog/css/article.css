@@ -1,7 +1,4 @@
 #article {
-    min-width: 400px;
-    max-width: 1000px;
-
     .ql-code-block-container {
         background-color: var(--bg-light);
         padding: 15px;

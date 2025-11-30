@@ -35,7 +35,13 @@ def dashboard(request):
         page_obj = paginator.page(page_number)
     except EmptyPage as e:
         return render(request, 'blog/dashboard.html', {"message": str(e)})
-    return render(request, 'blog/dashboard.html', {"page_obj": page_obj})
+    
+    context = {
+        "page_obj": page_obj,
+        "STATUS": Article.Status,
+    }
+
+    return render(request, 'blog/dashboard.html', context)
 
 
 def articles(request, article_slug):
@@ -43,6 +49,7 @@ def articles(request, article_slug):
         article = get_object_or_404(Article, slug=article_slug, status=Article.Status.PUBLISHED)
     else:
         article = get_object_or_404(Article, slug=article_slug)
+
     return render(request, "blog/article.html", {"article": article})
 
 
@@ -64,11 +71,13 @@ def _article_editor(request, article, is_draft=False):
     else:
         form = ArticleForm(instance=article)
     
-    return render(request, 'blog/write.html', {
+    context = {
         "form": form,
         "is_edit": not is_draft,
         "article_id": article.id,
-    })
+    }
+
+    return render(request, 'blog/write.html', context)
 
 
 def edit(request, article_slug):

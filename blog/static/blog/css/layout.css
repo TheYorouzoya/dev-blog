@@ -1,49 +1,158 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap');
 
 :root {
-    --bg-light: #252422;
-    --bg: #333533;
+    --bg-light: #333533 ;
+    --bg: #252422;
+    --bg-dark: #000;
     --text: #fffcf2;
     --text-dark: #ccc5b9;
-    --accent: #eb5e28;
+    --accent: #e9b303;
     font-family: 'Roboto';
 }
 
-nav {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 65px;
+body {
+    background-color: var(--bg-dark);
+    color: var(--text);
     margin: 0 auto;
-    background-color: var(--bg-light);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: row;
-    gap: 10px;
+}
+
+#blog-container {
+    background-color: var(--bg);
+    max-width: 1300px;
+    width: 100%;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#hero-section {
+    background-image: url('/media/images/kayama matazo a thousand cranes 1970.jpg');
+    background-position: left center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
+    height: 45vh; 
+    width: 100vw;
+    position: relative; 
+    border-bottom: 15px solid var(--accent);
+
+    .subheading {
+        position: absolute;
+        top: 36vh;
+        left: 70vw;
+        font-size: 3.5rem;
+        font-family: monoton;
+    }
+}
+
+nav {
+    height: 65px;
+    width: 100vw;
+
+    #nav-logo {
+        font-family: "Monoton", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 2rem;
+        position: relative;
+
+        span {
+            white-space: pre;
+        }
+    }
+
+    #nav-logo:hover {
+        cursor: pointer;
+    }
+
+    #nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1300px;
+        width: 100%;
+        margin: 0px 20px;
+    }
 
     a {
         text-decoration: inherit;
-        color: var(--text);
+        color: white;
         padding: 15px;
+        text-transform: uppercase;
+        font-weight: 300;
     }
 
     a:hover {
-        background-color: var(--accent);
-        color: var(--text);
+        background-color: var(--text);
+        color: var(--accent);
         border-radius: 5px;
     }
 }
 
-body {
-    margin-top: 75px;
-    background-color: var(--bg);
-    color: var(--text);
+#blog-navbar {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
 }
 
-.blog-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#blog-navbar .wave {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--accent);
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+    transition: 0.5s;
+}
+#blog-navbar .wave span {
+    content: "";
+    position: absolute;
+    width: 375vh;
+    height: 375vh;
+    top: -1410%;
+    left: 50%;
+    transform: translate(-50%, -75%);
+    background: #000;
+}
+#nav-container {
+    position: relative;
+    z-index: 1;
+    letter-spacing: 2px;
+}
+#blog-navbar .wave span:nth-child(1) {
+    border-radius: 45%;
+    background: rgba(20, 20, 20, 1);
+    animation: animate 5s linear infinite;
+}
+
+#blog-navbar .wave span:nth-child(2) {
+    border-radius: 40%;
+    background: rgba(20, 20, 20, 0.5);
+    animation: animate 10s linear infinite;
+}
+#blog-navbar .wave span:nth-child(3) {
+    border-radius: 42.5%;
+    background: rgba(20, 20, 20, 0.5);
+    animation: animate 15s linear infinite;
+}
+@keyframes animate {
+    0% {
+        transform: translate(-50%, -75%) rotate(360deg);
+    }
+    100% {
+        transform: translate(-50%, -75%) rotate(0deg);
+    }
 }
