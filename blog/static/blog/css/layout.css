@@ -41,7 +41,7 @@ body {
     height: 45vh; 
     width: 100vw;
     position: relative; 
-    border-bottom: 15px solid var(--accent);
+    border-bottom: 10px solid var(--accent);
 
     .subheading {
         position: absolute;
@@ -135,18 +135,18 @@ nav {
 #blog-navbar .wave span:nth-child(1) {
     border-radius: 45%;
     background: rgba(20, 20, 20, 1);
-    animation: animate 5s linear infinite;
+    animation: animate 10s linear infinite;
 }
 
 #blog-navbar .wave span:nth-child(2) {
     border-radius: 40%;
     background: rgba(20, 20, 20, 0.5);
-    animation: animate 10s linear infinite;
+    animation: animate 20s linear infinite;
 }
 #blog-navbar .wave span:nth-child(3) {
     border-radius: 42.5%;
     background: rgba(20, 20, 20, 0.5);
-    animation: animate 15s linear infinite;
+    animation: animate 30s linear infinite;
 }
 @keyframes animate {
     0% {

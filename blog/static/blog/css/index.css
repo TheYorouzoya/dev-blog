@@ -25,16 +25,45 @@
     }
 }
 
-.hr-line {
-    width: 100%;
-    border-color: var(--accent);
-}
+.blog-content-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 2fr));
+    gap: 15px;
 
-
-.article-card {
-    a {
-        text-decoration: inherit;
-        color: var(--accent);
+    .content-right {
+        padding: 10px;
     }
 }
 
+.blog-content-container :first-child {
+    grid-column: span 3;
+}
+
+.article-card {
+    border-bottom: 1px solid white;
+    padding: 10px;
+    margin-bottom: 15px;
+
+    h2 {
+        margin: 0;
+        text-align: left;
+        padding: 15px 0px;
+
+        a {
+            text-decoration: inherit;
+            color: var(--accent);
+        }
+    }
+
+
+    .article-top {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+.article-card:hover {
+    background-color: var(--bg-light);
+}

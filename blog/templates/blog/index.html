@@ -19,33 +19,40 @@
         <h1>RATNESH</h1>
         <span class="intro-description">This is my blog where I write about some of the tech stuff I'm working on.</span>
     </div>
-    
-    <hr class="hr-line" />
 
-    {% if page_obj %}
-        {% for article in page_obj %}
-            <article class="article-card">
-                <h2><a href="{% url 'blog:articles' article.slug %}">{{ article.title }}</a></h2>
-                <div>{{ article.topic }}</div>
-                <div>{{ article.excerpt }}</div>
-            </article>
-        {% endfor %}
-        <div class="pagination">
-            <span class="step-links">
-                {% if page_obj.has_previous %}
-                    <a href="?page=1">&laquo; first</a>
-                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                {% endif %}
+    <div class="blog-content-container">
+        <div class="content-left">
+        {% if page_obj %}
+            {% for article in page_obj %}
+                <article class="article-card">
+                    <div class="article-top">
+                        <h2><a href="{% url 'blog:articles' article.slug %}">{{ article.title }}</a></h2>
+                        <div>{{ article.topic }}</div>
+                    </div>
+                    <div>{{ article.excerpt }}</div>
+                </article>
+            {% endfor %}
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
 
-                <span class="current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
                 </span>
-
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}">next</a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                {% endif %}
-            </span>
+            </div>
+        {% endif %}
         </div>
-    {% endif %}
+        <div class="content-right">
+        {% include "blog/sidebar.html" %}
+        </div>
+    </div>
 {% endblock %}
