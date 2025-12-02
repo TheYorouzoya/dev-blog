@@ -29,7 +29,16 @@
                             <a href="{% url "blog:index" %}" class="hvr-shutter-out-vertical">Topics</a>
                             <a href="{% url "blog:index" %}" class="hvr-shutter-out-vertical">About</a>
                         </div>
-                        
+                        <div id="nav-search">
+                            <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round"></path>
+                            </svg>
+                            <input type="text" id="nav-search-bar" placeholder="Search..." autocomplete="off">
+                            <div class="search-result-container">
+                                <ul id="nav-search-results">                                            
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -44,9 +53,9 @@
             {% block body %}
             {% endblock %}
         </main>
-        {% block footer %}
-        {% endblock %}
-        {% block script %}
-        {% endblock %}
+        {% block footer %}{% endblock %}
+        {% block script %}{% endblock %}
+        <script type="module" src="{% static "blog/js/api.js" %}"></script>
+        <script type="module" src="{% static "blog/js/search.js" %}"></script>
     </body>
 </html>

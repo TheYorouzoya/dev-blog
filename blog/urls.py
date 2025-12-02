@@ -12,4 +12,5 @@ urlpatterns = [
     path("autosave/", views.autosave, name="autosave"),
     path("images/upload/", views.upload_image, name="upload_image"),
     path("write/", views.write, name="write"),
+    path("search/article/", views.search_article, name="search_article"),
 ]

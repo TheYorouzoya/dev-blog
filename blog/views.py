@@ -3,7 +3,7 @@ import json
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, JsonResponse
 from django.core.paginator import Paginator, EmptyPage
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET
 
 from .models import Article, ArticleImage
 from .forms import ArticleForm, ArticleImageForm
@@ -153,3 +153,23 @@ def upload_image(request):
         "url": saved_image.image.url,
         "id": saved_image.id,
     }, status=201)
+
+
+@require_GET
+def search_article(request):
+    RESULTS_LIMIT = 5
+    query = request.GET.get("q")
+    query = query.strip()
+
+    if not query:
+        return JsonResponse({
+            "results": []
+        }, status=200)
+    
+    qSet = Article.objects.filter(status=Article.Status.PUBLISHED) \
+                            .filter(title__icontains=query) \
+                            .order_by('title')[:RESULTS_LIMIT]
+    
+    return JsonResponse({
+        "results": [article.search_serialize() for article in qSet]
+    }, status=200)

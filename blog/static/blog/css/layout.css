@@ -7,6 +7,7 @@
     --text: #fffcf2;
     --text-dark: #ccc5b9;
     --accent: #2098D1;
+    --accent-light: #6abde4;
     --heading-bg-light: rgba(255, 255, 255, 0.75);
     --codeblock-bg-light: #17445a;
     font-family: 'Roboto';
@@ -29,10 +30,12 @@ body {
     background: transparent;
     background-color: rgba(16, 81, 107, 0.1);
     backdrop-filter: blur(5px);
+    --webkit-backdrop-filter: blur(15px);
     max-width: 1100px;
     margin: 30px;
     padding: 25px;
     display: flex;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -86,17 +89,12 @@ body {
 }
 
 nav {
-    height: 75px;
     width: 100vw;
-    background: transparent;
-    /* backdrop-filter: blur(5px); */
-    overflow: hidden;
+    margin-top: 15px;
 
     #blog-navbar {
-        position: relative;
         width: 100%;
         height: 100%;
-        overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -120,6 +118,96 @@ nav {
         letter-spacing: 2px;
     }
 
+    #nav-search {
+        display: flex;
+        align-items: center;
+        border: 1px solid white;
+        border-radius: 20px;
+        padding-left: 10px;
+        background: transparent;
+        backdrop-filter: blur(15px);
+        --webkit-backdrop-filter: blur(15px);
+
+        svg {
+            height: 20px;
+        }
+        
+        input {
+            background: transparent;
+            padding: 8px;
+            min-width: 250px;
+            color: var(--text);
+            border: none;
+            text-transform: uppercase;
+            font-weight: 100;
+            letter-spacing: 1px;
+        }
+
+        input:focus, 
+        input:focus-visible, 
+        input:focus-within {
+            border: none;
+            outline: none;
+            
+        }
+        
+        input::placeholder {
+            color: white;
+            font-family: 'roboto';
+            text-transform: uppercase;
+            font-weight: 200;
+            letter-spacing: 1px;
+        }
+    }
+
+    #nav-search:focus-within {
+        box-shadow: rgba(50, 140, 192, 0.45) 0px 0px 15px;
+        border: 1px solid var(--accent-light);
+
+        svg {
+            color: var(--accent-light);
+        }
+    }
+
+    #nav-search {
+        position: relative;
+
+        .search-result-container {
+            position: absolute;
+            overflow-y: auto;
+            top: 100%;
+            left: 4%;
+            width: 92%;
+
+            #nav-search-results {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                border: 1px solid var(--accent-light);
+                display: none;
+                
+                li {
+                    padding: 5px;
+                    border-bottom: 1px solid var(--accent-light);
+                    background-color: rgba(16, 81, 107, 0.7);
+                    font-weight: 200;
+                }
+
+                li:last-child {
+                    border-bottom: none;
+                }
+
+                li:hover {
+                    cursor: pointer;
+                    background-color: var(--codeblock-bg-light);
+                }
+            }
+
+            #nav-search-results.visible {
+                display: block;
+            }
+        }
+    }
 }
 
 /* Shutter Out Vertical */

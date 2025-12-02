@@ -87,6 +87,12 @@ class Article(models.Model):
             self.published_at and
             self.published_at <= timezone.now()
         )
+    
+    def search_serialize(self):
+        return {
+            "title": self.title,
+            "slug": self.slug,
+        }
 
     def __str__(self):
         return self.title    
