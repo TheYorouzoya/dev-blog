@@ -65,9 +65,6 @@ def _article_editor(request, article, is_draft=False):
                                 .exclude(id__in=image_ids).delete()
 
             return redirect('blog:articles', article_slug=updated_article.slug)
-    elif request.method == 'DELETE':
-        article.delete()
-        return redirect('index')
     else:
         form = ArticleForm(instance=article)
     
@@ -75,6 +72,7 @@ def _article_editor(request, article, is_draft=False):
         "form": form,
         "is_edit": not is_draft,
         "article_id": article.id,
+        "STATUS": Article.Status,
     }
 
     return render(request, 'blog/write.html', context)
@@ -94,6 +92,18 @@ def drafts(request, article_id):
 
     article = get_object_or_404(Article, pk=article_id, status=Article.Status.DRAFT)
     return _article_editor(request, article, is_draft=True)
+
+
+@require_POST
+def article_delete(request, article_id):
+    if not request.user.is_authenticated:
+        raise Http404("Page does not exist")
+
+    article = get_object_or_404(Article, pk=article_id)
+
+    article.delete()
+
+    return redirect('blog:dashboard')
 
 
 def autosave(request):

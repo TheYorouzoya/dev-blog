@@ -8,6 +8,7 @@ urlpatterns = [
     path("dashboard/", views.dashboard, name="dashboard"),
     path("articles/<str:article_slug>/", views.articles, name="articles"),
     path("articles/<str:article_slug>/edit/", views.edit, name="edit"),
+    path("articles/<int:article_id>/delete/", views.article_delete, name="article_delete"),
     path("drafts/<int:article_id>/", views.drafts, name="drafts"),
     path("autosave/", views.autosave, name="autosave"),
     path("images/upload/", views.upload_image, name="upload_image"),

@@ -276,6 +276,10 @@ nav {
     }
 }
 
+.button.delete:hover {
+    background-color: indianred;
+}
+
 .button:hover {
     cursor: pointer;
 }

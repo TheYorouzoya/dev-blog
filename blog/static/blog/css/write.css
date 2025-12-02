@@ -118,10 +118,32 @@
     }
 
     .form-footer {
-        display: block;
-        text-align: right;
-        align-items: right;
+        display: flex;
+        justify-content: space-between;
         box-sizing: border-box;
-        margin-top: 5px;
+        align-items: right;
+        margin-top: 10px;
+    }
+}
+
+#delete-dialog {
+    background-color: var(--codeblock-bg-light);
+    padding: 30px 50px;
+    text-align: center;
+    
+    h2 {
+        margin: 0;
+        text-transform: uppercase;
+        font-weight: 400;
+        letter-spacing: 1px;
+    }
+
+    .dialog-buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    button[type="submit"]:hover {
+        background-color: indianred;
     }
 }

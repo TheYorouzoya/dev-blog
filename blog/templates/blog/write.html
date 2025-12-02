@@ -24,11 +24,37 @@
             </div>
             
             <div class="form-footer">
-                <span id="save-article" class="button hvr-shutter-out-vertical">Save</span>
-                <button type="submit" class="button hvr-shutter-out-vertical">{{ is_edit|yesno:"Update Article,Publish Article" }}</button>
+                <span class="button delete" onclick="document.getElementById('delete-dialog').showModal()">
+                    {% if form.status.value == STATUS.PUBLISHED %}
+                    Delete Article
+                    {% else %}
+                    Delete Draft
+                    {% endif %}
+                </span>
+                <div>
+                    <span id="save-article" class="button hvr-shutter-out-vertical">Save</span>
+                    <button type="submit" class="button hvr-shutter-out-vertical">{{ is_edit|yesno:"Update Article,Publish Article" }}</button>
+                </div>
             </div>
         </form>
     </div>
+    <dialog id="delete-dialog">
+        <form action="{% url "blog:article_delete" article_id %}" method="post">
+            {% csrf_token %}
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete "{{ form.title.value }}"</p>
+            <p>This action cannot be undone.</p>
+
+            <div class="dialog-buttons">
+                <span class="button" onclick="document.getElementById('delete-dialog').close()">
+                    Cancel
+                </span>
+                <button type="submit" class="button">
+                    Delete
+                </button>
+            </div>
+        </form>
+    </dialog>
 {% endblock %}
 
 {% block script %}
