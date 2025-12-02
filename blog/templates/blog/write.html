@@ -12,7 +12,14 @@
         <h2 class="editor-heading">{{ is_edit|yesno:"Edit Article,Write A New Article" }}</h2>
         <form method="post" id="article-form" data-article-id="{{ article_id }}">
             {% csrf_token %}
-            {{ form }}
+            {% for field in form %}
+                <div class="article-form-field">
+                    {% if not field.is_hidden %}
+                    <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                    {% endif %}
+                    {{ field }}
+                </div>
+            {% endfor %}
             <div id="editor">
             </div>
             

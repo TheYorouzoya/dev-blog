@@ -4,9 +4,10 @@
 
     .ql-toolbar {
         position: sticky;
+        background-color: var(--codeblock-bg-light);
+        backdrop-filter: blur(15px);
         top: 0;
         z-index: 1000;
-        background-color: var(--bg);
     }
 
     .ql-toolbar .ql-stroke {
@@ -59,4 +60,58 @@
 
 #editor {
     font-family: 'roboto' !important;
+
+    p, ul, ol {
+        font-size: 1rem;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+    }
+
+    .ql-code-block-container {
+        background-color: var(--codeblock-bg-light) !important;
+    }
+}
+
+#editor-container {
+    .editor-heading {
+        text-transform: uppercase;
+        font-weight: 300;
+        text-align: center;
+        background-color: var(--heading-bg-light);
+        padding: 5px;
+        color: var(--bg-dark);
+    }
+}
+
+#article-form {
+    .article-form-field {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100px, 100%), 1fr));
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 10px;
+
+        label {
+            text-transform: uppercase;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        input, select {
+            background: transparent;
+            border: 1px solid white;
+            padding: 5px;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        select > option {
+            background-color: var(--codeblock-bg-light);
+            color: white;
+        }
+    }
+
+    .article-form-field :last-child {
+        grid-column: span 6;
+    }
 }

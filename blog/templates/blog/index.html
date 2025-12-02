@@ -14,22 +14,17 @@
         <div>{{ message }}</div>
     {% endif %}
 
-    <div class="intro">
-        <span>Hi! I'm</span>
-        <h1>RATNESH</h1>
-        <span class="intro-description">This is my blog where I write about some of the tech stuff I'm working on.</span>
-    </div>
-
     <div class="blog-content-container">
         <div class="content-left">
+            <h2 class="content-heading">Latest Articles</h2>
         {% if page_obj %}
             {% for article in page_obj %}
                 <article class="article-card">
                     <div class="article-top">
                         <h2><a href="{% url 'blog:articles' article.slug %}">{{ article.title }}</a></h2>
-                        <div>{{ article.topic }}</div>
                     </div>
-                    <div>{{ article.excerpt }}</div>
+                    <div class="article-topic">{{ article.topic }}</div>
+                    <div class="article-excerpt">{{ article.excerpt }}</div>
                 </article>
             {% endfor %}
             <div class="pagination">

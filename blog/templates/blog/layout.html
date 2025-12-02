@@ -14,32 +14,30 @@
 
     
     <body>
-        {% block nav %}
-        <nav>
-            <div id="blog-navbar">
-                <div class="wave">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <div id="nav-container">
-                    <div id="nav-links">
-                        <a href="{% url 'blog:index' %}">Home</a>
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'blog:dashboard' %}">Dashboard</a>
-                        {% endif %}
-                    </div>
-                    <div id="nav-logo">
-                        <span>DEV  BLOG</span>
-                        {% comment %} <div class="subheading">DEV BLOG</div> {% endcomment %}
-                    </div>
-                </div>
-            </div>
-        </nav>
-        {% endblock  %}
         {% block hero %}
         <div id="hero-section">
-            {% comment %} <div class="subheading">RATNESH'S</div> {% endcomment %}
+            {% block nav %}
+            <nav>
+                <div id="blog-navbar">
+                    <div id="nav-container">
+                        <div id="nav-links">
+                            <a href="{% url 'blog:index' %}" class="hvr-shutter-out-vertical">Home</a>
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'blog:dashboard' %}" class="hvr-shutter-out-vertical">Dashboard</a>
+                            <a href="{% url 'blog:write' %}" class="hvr-shutter-out-vertical">Write</a>
+                            {% endif %}
+                            <a href="{% url "blog:index" %}" class="hvr-shutter-out-vertical">Topics</a>
+                            <a href="{% url "blog:index" %}" class="hvr-shutter-out-vertical">About</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </nav>
+            {% endblock  %}
+            <div id="hero-logo" class="hvr-shutter-out-vertical">
+                <div id="logo-main">Ratnesh's</div>
+                <div id="logo-sub">Tech Blog</div>
+            </div>
         </div>
         {% endblock %}
         <main id="blog-container">

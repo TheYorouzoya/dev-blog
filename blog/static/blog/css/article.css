@@ -1,6 +1,6 @@
 #article {
     .ql-code-block-container {
-        background-color: var(--bg-light);
+        background-color: var(--codeblock-bg-light);
         padding: 15px;
         border-radius: 10px;
         white-space: pre-wrap;

@@ -1,53 +1,41 @@
-.intro {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 25px;
-
-    span {
-        font-size: 2rem;
-    }
-
-    h1 {
-        font-family: "Monoton", sans-serif;
-        font-weight: 200;
-        font-style: normal;
-        font-size: 5rem;
-        color: var(--accent);
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
-
-    span.intro-description {
-        max-width: 600px;
-        font-size: 1.2rem;
-        text-align: center;
-    }
-}
-
 .blog-content-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 2fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 2fr));
+    gap: 20px;
+
+    .content-heading {
+        background-color: var(--heading-bg-light);
+        backdrop-filter: blur(2px);
+        color: var(--bg-dark);
+        font-weight: 300;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 5px;
+    }
 
     .content-right {
-        padding: 10px;
+
     }
 }
 
 .blog-content-container :first-child {
-    grid-column: span 3;
+    grid-column: span 2;
 }
 
 .article-card {
-    border-bottom: 1px solid white;
+    
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
+    border-radius: 5px;
 
     h2 {
         margin: 0;
         text-align: left;
-        padding: 15px 0px;
+        text-transform: uppercase;
+        font-weight: 300;
+        letter-spacing: 1px;
+        padding: 5px 0px;
 
         a {
             text-decoration: inherit;
@@ -55,15 +43,30 @@
         }
     }
 
-
     .article-top {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
     }
+
+    .article-topic {
+        font-weight: 400;
+        text-transform: uppercase;
+        font-size: 14px;
+        background-color: var(--heading-bg-light);
+        color: var(--bg-dark);
+        padding: 3px;
+        letter-spacing: 1px;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+
+    .article-excerpt {
+        text-align: justify;
+    }
 }
 
 .article-card:hover {
-    background-color: var(--bg-light);
+    background-color: rgba(255, 255, 255, 0.1);
 }
