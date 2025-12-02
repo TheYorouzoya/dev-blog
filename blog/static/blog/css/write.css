@@ -108,10 +108,20 @@
         select > option {
             background-color: var(--codeblock-bg-light);
             color: white;
+            font-weight: 100;
         }
+        
     }
 
     .article-form-field :last-child {
         grid-column: span 6;
+    }
+
+    .form-footer {
+        display: block;
+        text-align: right;
+        align-items: right;
+        box-sizing: border-box;
+        margin-top: 5px;
     }
 }

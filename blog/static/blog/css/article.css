@@ -19,4 +19,31 @@
         text-decoration: inherit;
         color: var(--accent);
     }
+
+    .article-title {
+        
+    }
+
+    .article-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .article-info {
+        display: flex;
+        gap: 10px;
+        font-size: 0.95rem;
+        font-weight: 300;
+        font-style: italic;
+        padding: 5px;
+        background-color: var(--heading-bg-light);
+        color: var(--bg-dark);
+        /* text-transform: uppercase; */
+
+        div {
+            border-right: 1px solid var(--bg-dark);
+            padding-right: 10px;
+        }
+    }
 }

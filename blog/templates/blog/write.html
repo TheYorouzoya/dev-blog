@@ -23,9 +23,11 @@
             <div id="editor">
             </div>
             
-            <button type="submit">{{ is_edit|yesno:"Update Article,Publish Article" }}</button>
+            <div class="form-footer">
+                <span id="save-article" class="button hvr-shutter-out-vertical">Save</span>
+                <button type="submit" class="button hvr-shutter-out-vertical">{{ is_edit|yesno:"Update Article,Publish Article" }}</button>
+            </div>
         </form>
-        <button id="save-article">Save</button>
     </div>
 {% endblock %}
 
