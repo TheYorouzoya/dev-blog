@@ -17,7 +17,14 @@
                     {% if not field.is_hidden %}
                     <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
                     {% endif %}
+                    {% if field.name == 'topic' %}
+                    <div class="article-input">
+                        {{ field }}
+                        <span class="button hvr-shutter-out-vertical" onclick="document.getElementById('add-topic-dialog').showModal()">+</span>
+                    </div>
+                    {% else %}
                     {{ field }}
+                    {% endif %}
                 </div>
             {% endfor %}
             <div id="editor">
@@ -54,6 +61,14 @@
                     Delete
                 </button>
             </div>
+        </form>
+    </dialog>
+    <dialog id="add-topic-dialog">
+        <form id="add-topic-form" action="{% url "blog:all_topics" %}" method="post">
+            {% csrf_token %}
+            <h2>Add New Topic</h2>
+            {{ topic_form }}
+            <button type="submit" class="button hvr-shutter-out-vertical">Add Topic</button>
         </form>
     </dialog>
 {% endblock %}

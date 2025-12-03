@@ -21,6 +21,14 @@ class Topic(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "slug": self.slug,
+            "description": self.description,
+        }
 
 
 class Tag(models.Model):

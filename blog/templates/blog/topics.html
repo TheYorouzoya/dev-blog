@@ -1,6 +1,10 @@
 {% extends "blog/layout.html" %}
 {% load static %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static "blog/css/topics.css" %}">
+{% endblock css %}
+
 {% block body %}
 <div id="topic-container">
     <h2 class="content-heading">All Topics</h2>
@@ -10,7 +14,7 @@
                 <a href="{% url "blog:topic" topic.slug %}">{{ topic.name }}</a>
             </div>
             <div class="topic-count">
-                Articles: {{ topic.article_count }}
+                <span>{{ topic.article_count }} articles</span>
             </div>
             <div class="topic-description">
                 {{ topic.description }}

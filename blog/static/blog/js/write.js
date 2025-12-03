@@ -1,5 +1,5 @@
 import { uploadBase64Img } from "./utils.js";
-import { autoSaveArticle } from "./api.js";
+import { autoSaveArticle, addNewTopic } from "./api.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const toolbarOptions = [
@@ -58,6 +58,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveButton = document.getElementById('save-article');
     saveButton.onclick = saveAndUploadEditorContent;
     
+    document.getElementById('add-topic-form').onsubmit = async (event) => {
+        event.preventDefault();
+        const addTopicForm = event.target;
+        const formData = new FormData(addTopicForm);
+
+        const apiResponse = await addNewTopic(formData);
+        
+        const newTopic = apiResponse["topic"];
+        
+        const topicOption = document.createElement('option');
+        topicOption.setAttribute('value', newTopic["id"]);
+        topicOption.textContent = newTopic["name"];
+        
+        const topicSelect = document.getElementById('id_topic');
+        topicSelect.appendChild(topicOption);
+        topicSelect.value = newTopic["id"];
+        
+        document.getElementById('add-topic-dialog').close();
+    };
+    
+
     const saveContent = () => {
         // copy editor content
         var content = document.getElementById('id_content');

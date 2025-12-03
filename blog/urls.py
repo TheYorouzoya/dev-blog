@@ -18,4 +18,5 @@ urlpatterns = [
     path("api/images/upload/", views.upload_image, name="upload_image"),
     path("api/articles/autosave/", views.autosave, name="autosave_article"),
     path("api/search/articles/", views.search_article, name="search_article"),
+    path("api/topics/", views.topics_api, name="topics_api"),
 ]

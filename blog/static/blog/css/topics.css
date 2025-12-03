@@ -1,0 +1,41 @@
+#topic-container {
+    width: 100%;
+
+    .topic-card {
+        border-bottom: 1px solid var(--accent);
+        padding: 10px;
+        padding-bottom: 15px;
+    }
+
+    .topic-card:hover {
+        background-color: var(--hover-bg-light);
+    }
+
+    .topic-name {
+        margin-bottom: 10px;
+    }
+
+    .topic-name > a {
+        text-decoration: inherit;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        font-weight: 200;
+        color: var(--accent);
+    }
+
+    .topic-count {
+        margin-bottom: 25px;
+    }
+
+    .topic-count > span {
+        background-color: var(--heading-bg-light);
+        color: var(--bg-dark);
+        padding: 5px;
+        font-weight: 300;
+        font-style: italic;
+    }
+
+    .topic-description {
+        
+    }
+}

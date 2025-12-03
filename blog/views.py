@@ -7,7 +7,7 @@ from django.views.decorators.http import require_POST, require_GET
 from django.db.models import Count
 
 from .models import Article, ArticleImage, Topic
-from .forms import ArticleForm, ArticleImageForm
+from .forms import ArticleForm, ArticleImageForm, TopicForm
 
 
 def index(request):
@@ -71,6 +71,7 @@ def _article_editor(request, article, is_draft=False):
     
     context = {
         "form": form,
+        "topic_form": TopicForm(),
         "is_edit": not is_draft,
         "article_id": article.id,
         "STATUS": Article.Status,
@@ -209,3 +210,24 @@ def topic(request, topic_slug):
         return render(request, 'blog/index.html', {"message": str(e)})
 
     return render(request, 'blog/index.html', { "page_obj": page_obj })
+
+
+@require_POST
+def topics_api(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "Unauthorized"}, status=401)
+    topic_form = TopicForm(request.POST)
+    if topic_form.is_valid():
+        new_topic = topic_form.save()
+        return JsonResponse(
+            {
+                "message": "Topic addess successfully",
+                "topic": new_topic.serialize(),
+            }
+            , status=201)
+    return JsonResponse(
+        {
+            "message": "Invalid form data",
+            "errors": topic_form.errors,
+        }
+        , status=400)

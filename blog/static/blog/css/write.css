@@ -1,3 +1,31 @@
+label {
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+input, select, textarea {
+    background: transparent;
+    border: 1px solid white;
+    padding: 5px;
+    color: var(--text);
+    font-size: 1rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    box-shadow: var(--accent-box-shadow);
+    outline: 0;
+    border: 1px solid var(--accent);
+}
+
+select > option {
+    background-color: var(--codeblock-bg-light);
+    color: white;
+    font-weight: 100;
+}
+
 #editor-container {
     .ql-toolbar {
         position: sticky;
@@ -91,29 +119,24 @@
         gap: 15px;
         margin-bottom: 10px;
 
-        label {
-            text-transform: uppercase;
-            font-weight: 300;
-            letter-spacing: 1px;
+        .article-input {
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+
+            .button {
+                margin-left: 10px;
+                line-height: 10px;
+            }
         }
 
-        input, select {
-            background: transparent;
-            border: 1px solid white;
-            padding: 5px;
-            color: var(--text);
-            font-size: 1rem;
-        }
-
-        select > option {
-            background-color: var(--codeblock-bg-light);
-            color: white;
-            font-weight: 100;
+        .article-input :first-child {
+            flex-grow: 1;
         }
         
     }
 
-    .article-form-field :last-child {
+    .article-form-field :nth-child(2) {
         grid-column: span 6;
     }
 
@@ -133,15 +156,22 @@
 }
 
 #delete-dialog {
-    background-color: var(--codeblock-bg-light);
+    background: transparent;
+    backdrop-filter: blur(15px);
+    outline-color: var(--accent);
+    box-shadow: var(--accent-box-shadow);
+    border: 3px solid indianred;
     padding: 30px 50px;
     text-align: center;
     
     h2 {
         margin: 0;
         text-transform: uppercase;
-        font-weight: 400;
+        font-weight: 300;
         letter-spacing: 1px;
+        background-color: indianred;
+        color: var(--bg-dark);
+        padding: 5px;
     }
 
     .dialog-buttons {
@@ -151,5 +181,45 @@
     
     button[type="submit"]:hover {
         background-color: indianred;
+        color: var(--text);
     }
+}
+
+#add-topic-dialog {
+    background: transparent;
+    backdrop-filter: blur(15px);
+    box-shadow: var(--accent-box-shadow);
+    
+    h2 {
+        margin: 0;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        font-weight: 300;
+        letter-spacing: 1px;
+        background-color: var(--heading-bg-light);
+        color: var(--bg-dark);
+        padding: 5px;
+        text-align: center;
+    }
+
+    #add-topic-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        
+        div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input:focus,
+        textarea:focus {
+            border: 1px solid var(--accent-light);
+        }
+    }
+
 }

@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django import forms
 
-from .models import Article, ArticleImage
+from .models import Article, ArticleImage, Topic
 
 class Html5DateInput(forms.DateInput):
     input_type = 'date'
@@ -41,3 +41,9 @@ class ArticleImageForm(forms.ModelForm):
     class Meta:
         model = ArticleImage
         fields = ['article', 'image']
+
+
+class TopicForm(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = ['name', 'description']

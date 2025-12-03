@@ -56,5 +56,27 @@ export async function uploadArticleImage(formData) {
         throw new Error(`Upload failed ${apiResponse["errors"]}`);
     }
 
-    return  await apiResponse.json();
+    return await apiResponse.json();
+}
+
+export async function addNewTopic(formData) {
+    const TOPIC_ENDPOINT = `${API_BASE_URL}/topics/`;
+
+    if (!formData) {
+        throw new Error("FormData is required!");
+    }
+
+    const apiResponse = await fetch(TOPIC_ENDPOINT, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': getCSRFToken(),
+        }
+    });
+
+    if (!apiResponse.ok) {
+        throw new Error(`Failed to add new topic: ${apiResponse["errors"]}`);
+    }
+
+    return await apiResponse.json();
 }
