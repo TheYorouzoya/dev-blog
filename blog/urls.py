@@ -10,8 +10,10 @@ urlpatterns = [
     path("articles/<str:article_slug>/edit/", views.edit, name="edit"),
     path("articles/<int:article_id>/delete/", views.article_delete, name="article_delete"),
     path("drafts/<int:article_id>/", views.drafts, name="drafts"),
-    path("autosave/", views.autosave, name="autosave"),
-    path("images/upload/", views.upload_image, name="upload_image"),
     path("write/", views.write, name="write"),
-    path("search/article/", views.search_article, name="search_article"),
+
+    # API ROUTES
+    path("api/images/upload/", views.upload_image, name="upload_image"),
+    path("api/articles/autosave/", views.autosave, name="autosave_article"),
+    path("api/search/articles/", views.search_article, name="search_article"),
 ]

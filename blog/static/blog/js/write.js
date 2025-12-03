@@ -1,4 +1,5 @@
-import { getCookie, uploadBase64Img } from "./utils.js";
+import { uploadBase64Img } from "./utils.js";
+import { autoSaveArticle } from "./api.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const toolbarOptions = [
@@ -29,17 +30,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // pre-populate editor with saved data (if any)
     const editorContent = document.getElementById('id_content');
     if (editorContent.value) {
-        quill.root.innerHTML = editorContent.value;
+        const delta = quill.clipboard.convert({ html: editorContent.value });
+        quill.setContents(delta, 'silent');
     }
-
+    
     const articleId = document.querySelector('form#article-form').dataset.articleId;
-
+    
+    // Upload inserted images (if not already uploaded), copy editor content
+    // to form field, and generate and populate excerpt before article form submit
     document.querySelector('form#article-form').onsubmit = async () => {
         await uploadImages(articleId);
         saveContent();
         saveExcerpt();
     };
 
+    // Auto-save methods
     let autoSaveTimeout = null;
     const TIMEOUT_DURATION_MS = 2000;
 
@@ -62,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const imgs = content.querySelectorAll("img[data-article-image-id]");
         const ids = Array.from(imgs).map(img => img.getAttribute("data-article-image-id"));
         
+        // append IDs for uploaded images
         document.querySelector("input[name='image_ids']").value = JSON.stringify(ids);
     }
 
@@ -94,41 +100,25 @@ document.addEventListener('DOMContentLoaded', () => {
         saveContent();
         saveExcerpt();
         
-        const title = document.getElementById('id_title').value;
-        const content = document.getElementById('id_content').value;
-        const excerpt = document.getElementById('id_excerpt').value;
-        const csrfToken = getCookie('csrftoken');
-        
-        fetch(`/autosave/`, {
-            method: 'POST',
-            body: JSON.stringify(
-                {
-                    id: articleId,
-                    title: title,
-                    content: content,
-                    excerpt: excerpt,
-                }
-            ),
-            headers: {
-                "X-CSRFToken": csrfToken
-            }
-        })
-        .then(response => response.json())
-        .then(data => updateAutoSaveStatus(data))
+        const article = {
+            id: articleId,
+            title: document.getElementById('id_title').value,
+            content: document.getElementById('id_content').value,
+            excerpt: document.getElementById('id_excerpt').value,
+        }
+
+        const saveStatus = autoSaveArticle(article);
+        updateAutoSaveStatus(saveStatus);
     }
 
     const updateAutoSaveStatus = (data) => {
         const status = document.getElementById('article-save-status');
         status.textContent = "";
-        if (data["error"]) {
-            status.textContent = `Auto-save failed: ${data["error"]}`;
-        } else {
-            const now = new Date();
-            const formattedTime = now.toLocaleTimeString(
-                'en-US', 
-                { hour: '2-digit', minute: '2-digit', hour12: true }
-            );
-            status.textContent = `Last Saved: ${formattedTime}`;
-        }
+        const now = new Date();
+        const formattedTime = now.toLocaleTimeString(
+            'en-US', 
+            { hour: '2-digit', minute: '2-digit', hour12: true }
+        );
+        status.textContent = `Last Saved: ${formattedTime}`;
     }
 })
