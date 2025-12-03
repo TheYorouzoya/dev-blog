@@ -32,6 +32,7 @@
                     {% endif %}
                 </span>
                 <div>
+                    <span id="article-save-status"></span>
                     <span id="save-article" class="button hvr-shutter-out-vertical">Save</span>
                     <button type="submit" class="button hvr-shutter-out-vertical">{{ is_edit|yesno:"Update Article,Publish Article" }}</button>
                 </div>
@@ -60,5 +61,5 @@
 {% block script %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
-    <script src="{% static 'blog/js/write.js' %}"></script>
+    <script type="module" src="{% static 'blog/js/write.js' %}"></script>
 {% endblock %}

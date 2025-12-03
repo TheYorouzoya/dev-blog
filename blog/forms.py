@@ -14,7 +14,7 @@ class ArticleForm(forms.ModelForm):
         model = Article
         fields = ['title', 'status', 'topic', 'tags', 'published_at', 'content', 'excerpt']
         widgets = {
-            'published_at': Html5DateInput,
+            'published_at': Html5DateInput(attrs={'required': False}),
             'content': forms.HiddenInput,
             'excerpt': forms.HiddenInput,
         }

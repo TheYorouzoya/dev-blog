@@ -5,7 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const navSearchResults = document.getElementById('nav-search-results');
 
     // fetch articles when user types in search bar
-    navSearchInput.addEventListener('keyup', async () => {
+    navSearchInput.addEventListener('keyup', async (event) => {
+        const releasedKey = event.key;
+        if (releasedKey === 'Escape') {
+            navSearchResults.classList.remove("visible");
+            navSearchResults.innerHTML = "";
+            return;
+        }
+        
         const searchResults = await searchArticles(navSearchInput.value);
         navSearchResults.innerHTML = "";
 
