@@ -1,0 +1,21 @@
+{% extends "blog/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div id="topic-container">
+    <h2 class="content-heading">All Topics</h2>
+    {% for topic in topics %}
+        <div class="topic-card">
+            <div class="topic-name">
+                <a href="{% url "blog:topic" topic.slug %}">{{ topic.name }}</a>
+            </div>
+            <div class="topic-count">
+                Articles: {{ topic.article_count }}
+            </div>
+            <div class="topic-description">
+                {{ topic.description }}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock body %}

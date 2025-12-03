@@ -3,17 +3,6 @@
     grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 2fr));
     gap: 20px;
 
-    .content-heading {
-        background-color: var(--heading-bg-light);
-        backdrop-filter: blur(2px);
-        color: var(--bg-dark);
-        font-weight: 300;
-        font-size: 1.5rem;
-        text-transform: uppercase;
-        text-align: center;
-        padding: 5px;
-    }
-
     .content-right {
 
     }
