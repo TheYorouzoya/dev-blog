@@ -68,5 +68,5 @@ Work in progress. Currently redirects to the homepage.
 
 As of this writing (05/12/2025), a version of the blog is deployed on PythonAnywhere at the following link: https://theyorouzoya.pythonanywhere.com/
 
-> ![NOTE]
+> [!NOTE]
 > Since PythonAnywhere requires a paid subscription to setup a CI/CD pipeline for GitHub deployments directly, I have to manually update the current version with the latest changes. As a result, the current version might not be up to date with the latest changes on this repo.
