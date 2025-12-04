@@ -6,7 +6,7 @@ from django.test import TestCase, override_settings
 from django.utils.text import slugify
 from django.db import IntegrityError
 
-from ...models import Topic
+from blog.models import Topic
 
 
 # Use a temporary media root for tests

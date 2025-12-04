@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage
 from django.db.models import Count
 
-from ..models import Article, Topic
+from blog.models import Article, Topic
 
 
 def all_topics(request):

@@ -5,7 +5,7 @@ import shutil
 from django.test import TestCase, override_settings
 from django.db import IntegrityError
 
-from ...models import Tag
+from blog.models import Tag
 
 
 # Use a temporary media root for tests

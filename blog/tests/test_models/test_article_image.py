@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from unittest.mock import patch
 
-from ...models import Article, ArticleImage
+from blog.models import Article, ArticleImage
 
 
 # Use a temporary media root for tests

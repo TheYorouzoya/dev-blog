@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from .views import article_views, dashboard_views, topic_views, api_views
+from .views import article_views, dashboard_views, topic_views
 
 app_name = "blog"
 urlpatterns = [

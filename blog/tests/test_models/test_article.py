@@ -7,7 +7,8 @@ from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.utils import timezone
 from datetime import timedelta
-from ...models import Topic, Tag, Article
+
+from blog.models import Topic, Tag, Article
 
 
 # Use a temporary media root for tests
