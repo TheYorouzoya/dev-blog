@@ -20,6 +20,11 @@
         <div class="author">Author: {{ article.author.first_name }}</div>
         <span>Topic: {{ article.topic }}</span>
     </div>
+    {% if article.featured_image %}
+    <div class="article-img">
+        <img src="{{ article.featured_image.url }}">
+    </div>
+    {% endif %}
     <div class="article-content">{{ article.content | safe }}</div>
 </article>
 {% endblock %}

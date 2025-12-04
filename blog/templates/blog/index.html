@@ -10,44 +10,46 @@
 {% endblock %}
 
 {% block body %}
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
-
-    <div class="blog-content-container">
-        <div class="content-left">
-            <h2 class="content-heading">Latest Articles</h2>
-        {% if page_obj %}
+<div class="blog-content-container">
+    <div class="content-left">
+        <h2 class="content-heading">Latest Articles</h2>
+            {% if message %}
+                <div>{{ message }}</div>
+            {% endif %}
+            {% if page_obj %}
             {% for article in page_obj %}
                 <article class="article-card">
-                    <div class="article-top">
-                        <h2><a href="{% url 'blog:articles' article.slug %}">{{ article.title }}</a></h2>
+                    <div class="article-img-container">
+                        <div class="article-img">
+                            {% if article.featured_image %}
+                            <img src="{{ article.featured_image.url }}">
+                            {% else %}
+                            <img src="/media/images/sandro-katalina-k1bO_VTiZSs-unsplash.jpg">
+                            {% endif %}
+                        </div>
                     </div>
-                    <div class="article-topic">{{ article.topic }}</div>
-                    <div class="article-excerpt">{{ article.excerpt }}</div>
+                    <div class="article-bottom">
+                        <h2><a href="{% url 'blog:articles' article.slug %}">{{ article.title }}</a></h2>
+                        <div class="article-topic">{{ article.topic }}</div>
+                        <div class="article-excerpt">{{ article.excerpt }}</div>
+                    </div>
                 </article>
             {% endfor %}
             <div class="pagination">
                 <span class="step-links">
                     {% if page_obj.has_previous %}
-                        <a href="?page=1">&laquo; first</a>
-                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        <a href="?page={{ page_obj.previous_page_number }}" class="button hvr-shutter-out-vertical">previous</a>
                     {% endif %}
 
-                    <span class="current">
-                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                    </span>
-
                     {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}">next</a>
-                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        <a href="?page={{ page_obj.next_page_number }}" class="button hvr-shutter-out-vertical">next</a>
                     {% endif %}
                 </span>
             </div>
         {% endif %}
         </div>
         <div class="content-right">
-        {% include "blog/sidebar.html" %}
+        {% include "blog/sidebar.html" with topics=topics %}
         </div>
     </div>
 {% endblock %}

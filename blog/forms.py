@@ -12,10 +12,11 @@ class ArticleForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ['title', 'status', 'topic', 'tags', 'content', 'excerpt']
+        fields = ['title', 'status', 'topic', 'tags', 'featured_image', 'content', 'excerpt']
         widgets = {
             'content': forms.HiddenInput,
             'excerpt': forms.HiddenInput,
+            
         }
 
     # def clean_published_at(self):

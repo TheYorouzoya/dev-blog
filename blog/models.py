@@ -52,7 +52,7 @@ class Article(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
     tags = models.ManyToManyField(Tag, blank=True)
     status = models.CharField(max_length=2, choices=Status, default=Status.DRAFT)
-    featured_image = models.ImageField(upload_to='media/images/', blank=True)
+    featured_image = models.ImageField(upload_to='images/', blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -112,3 +112,10 @@ def auto_delete_image_file_on_delete(sender, instance, **kwargs):
     if instance.image:
         if os.path.isfile(instance.image.path):
             os.remove(instance.image.path)
+
+
+@receiver(post_delete, sender=Article)
+def auto_delete_image_file_on_delete(sender, instance, **kwargs):
+    if instance.featured_image:
+        if os.path.isfile(instance.featured_image.path):
+            os.remove(instance.featured_image.path)

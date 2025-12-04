@@ -17,7 +17,6 @@
 }
 
 body {
-    /* background-color: var(--bg-dark); */
     color: var(--text);
     margin: 0 auto;
     display: flex;
@@ -31,8 +30,6 @@ body {
 #blog-container {
     background: transparent;
     background-color: rgba(16, 81, 107, 0.1);
-    backdrop-filter: blur(5px);
-    --webkit-backdrop-filter: blur(15px);
     max-width: 1100px;
     margin: 30px;
     padding: 25px;
@@ -287,4 +284,39 @@ nav {
     text-transform: uppercase;
     text-align: center;
     padding: 5px;
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .about-me-card {
+        margin-top: 25px;
+    }
+
+    .topics-card {
+        .topics-card-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid white;
+            padding: 10px 5px;
+            text-decoration: inherit;
+            color: var(--text);
+        }
+
+        .topics-card-row:hover {
+            background-color: var(--hover-bg-light);
+        }
+    }
+}
+
+.pagination > .step-links {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 10px;
+    a {
+        text-decoration: inherit;
+        color: var(--text);
+    }
 }

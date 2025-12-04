@@ -5,22 +5,34 @@ from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage
 from django.views.decorators.http import require_POST
 from django.utils import timezone
+from django.db.models import Count
 
-from blog.models import Article, ArticleImage
+from blog.models import Article, ArticleImage, Topic
 from blog.forms import ArticleForm, TopicForm
 
 
 def index(request):
-    ARTICLES_PER_PAGE = 10
+    ARTICLES_PER_PAGE = 5
     page_number = request.GET.get('page', 1)
     articles = Article.objects.filter(status=Article.Status.PUBLISHED)
     paginator = Paginator(articles, ARTICLES_PER_PAGE)
 
+    all_topics = Topic.objects.annotate(article_count=Count('article'))
+    
     try:
         page_obj = paginator.page(page_number)
     except EmptyPage as e:
-        return render(request, 'blog/index.html', {"message": str(e)})
-    return render(request, 'blog/index.html', {"page_obj": page_obj})
+        context = {
+            "message": str(e),
+            "topics": all_topics,
+        }
+        return render(request, 'blog/index.html', context)
+    
+    context = {
+        "page_obj": page_obj,
+        "topics": all_topics,
+    }
+    return render(request, 'blog/index.html', context)
 
 
 def articles(request, article_slug):
@@ -37,7 +49,9 @@ def _article_editor(request, article, is_draft=False):
         form = ArticleForm(request.POST, instance=article)
         if form.is_valid():
             updated_article = form.save()
-            updated_article.published_at = timezone.now()
+            if updated_article.status == Article.Status.PUBLISHED and updated_article.published_at is None:
+                updated_article.published_at = timezone.now()
+                
             updated_article.save()
             
             json_ids = form.cleaned_data.get('image_ids') or "[]"

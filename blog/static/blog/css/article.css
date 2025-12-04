@@ -22,8 +22,17 @@
         color: var(--accent-light);
     }
 
-    .article-title {
-        
+    .article-img {
+        height: 300px;
+        margin-top: 20px;
+        border: 1px solid var(--heading-bg-light);
+        padding: 10px;
+
+        img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
     }
 
     .article-heading {

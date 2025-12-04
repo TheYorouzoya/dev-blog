@@ -1,5 +1,23 @@
 {% load static %}
 
 <div class="sidebar-content">
-    <h2 class="content-heading">Popular Articles</h2>
+    <section>
+        <h2 class="content-heading">About Me</h2>
+        <div class="about-me-card">
+            <p>I'm a self-taught developer. I like computers, puzzles, building things, working out, and a little bit of reading and writing.</p>
+            <p>I hope you have a good time here. Hit me up for a chat if there's something you want to talk about.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="content-heading">Topics</h2>
+        <div class="topics-card">
+            {% for topic in topics %}
+                <a class="topics-card-row" href="{% url "blog:topic" topic.slug %}">
+                    <span>{{ topic.name }}</span>
+                    <span>{{ topic.article_count }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    </section>
 </div>
