@@ -30,8 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // pre-populate editor with saved data (if any)
     const editorContent = document.getElementById('id_content');
     if (editorContent.value) {
-        const delta = quill.clipboard.convert({ html: editorContent.value });
-        quill.setContents(delta, 'silent');
+        quill.root.innerHTML = editorContent.value;
     }
     
     const articleId = document.querySelector('form#article-form').dataset.articleId;

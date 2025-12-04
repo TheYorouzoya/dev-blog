@@ -1,6 +1,6 @@
 #article {
     width: 100%;
-    
+
     .ql-code-block-container {
         background-color: var(--codeblock-bg-light);
         padding: 15px;
@@ -19,7 +19,7 @@
 
     a {
         text-decoration: inherit;
-        color: var(--accent);
+        color: var(--accent-light);
     }
 
     .article-title {
