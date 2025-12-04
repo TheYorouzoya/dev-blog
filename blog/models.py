@@ -79,10 +79,6 @@ class Article(models.Model):
                 unique_slug = f"{base_slug}-{count}"
                 count += 1
             self.slug = unique_slug
-
-        if self.status == Article.Status.SCHEDULED and self.published_at:
-            if timezone.now() >= self.published_at:
-                self.status = Article.Status.PUBLISHED
         
         super().save(*args, **kwargs)
 
