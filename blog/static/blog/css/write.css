@@ -157,7 +157,7 @@ select > option {
 
 #delete-dialog {
     background: transparent;
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(20px);
     outline-color: var(--accent);
     box-shadow: var(--accent-box-shadow);
     border: 3px solid indianred;
@@ -187,7 +187,7 @@ select > option {
 
 #add-topic-dialog {
     background: transparent;
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(20px);
     box-shadow: var(--accent-box-shadow);
     
     h2 {

@@ -84,7 +84,7 @@ class Article(models.Model):
 
     def is_published(self):
         """
-        Check if article is actually publisjed (not just scheduled)
+        Check if article is actually published (not just scheduled)
         """
         return (
             self.status == Article.Status.PUBLISHED and

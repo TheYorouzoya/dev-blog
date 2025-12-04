@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveButton = document.getElementById('save-article');
     saveButton.onclick = saveAndUploadEditorContent;
     
+    // Add topic form handler
     document.getElementById('add-topic-form').onsubmit = async (event) => {
         event.preventDefault();
         const addTopicForm = event.target;

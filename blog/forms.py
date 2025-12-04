@@ -12,29 +12,28 @@ class ArticleForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ['title', 'status', 'topic', 'tags', 'published_at', 'content', 'excerpt']
+        fields = ['title', 'status', 'topic', 'tags', 'content', 'excerpt']
         widgets = {
-            'published_at': Html5DateInput(attrs={'required': False}),
             'content': forms.HiddenInput,
             'excerpt': forms.HiddenInput,
         }
 
-    def clean_published_at(self):
-        published_at = self.cleaned_data['published_at']
-        status = self.cleaned_data['status']
+    # def clean_published_at(self):
+    #     published_at = self.cleaned_data['published_at']
+    #     status = self.cleaned_data['status']
 
-        # during editing
-        if self.instance and self.instance.pk:
-            if status == Article.Status.SCHEDULED:
-                original_date = self.instance.published_at
-                if published_at.date() < original_date.date():
-                    raise forms.ValidationError("Publish date cannot be in the past!")
-                return published_at
+    #     # during editing
+    #     if self.instance and self.instance.pk:
+    #         if status == Article.Status.PUBLISHED:
+    #             original_date = self.instance.published_at
+    #             if published_at.date() < original_date.date():
+    #                 raise forms.ValidationError("Publish date cannot be in the past!")
+    #             return published_at
 
-        # during creation
-        if status == Article.Status.PUBLISHED and published_at.date() < datetime.now().date():
-            raise forms.ValidationError("Publish date cannot be in the past!")
-        return published_at
+    #     # during creation
+    #     if status == Article.Status.PUBLISHED and published_at.date() < datetime.now().date():
+    #         raise forms.ValidationError("Publish date cannot be in the past!")
+    #     return published_at
     
 
 class ArticleImageForm(forms.ModelForm):

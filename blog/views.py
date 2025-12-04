@@ -5,6 +5,7 @@ from django.http import Http404, JsonResponse
 from django.core.paginator import Paginator, EmptyPage
 from django.views.decorators.http import require_POST, require_GET
 from django.db.models import Count
+from django.utils import timezone
 
 from .models import Article, ArticleImage, Topic
 from .forms import ArticleForm, ArticleImageForm, TopicForm
@@ -59,6 +60,9 @@ def _article_editor(request, article, is_draft=False):
         form = ArticleForm(request.POST, instance=article)
         if form.is_valid():
             updated_article = form.save()
+            updated_article.published_at = timezone.now()
+            updated_article.save()
+            
             json_ids = form.cleaned_data.get('image_ids') or "[]"
             image_ids = set(json.loads(json_ids))
 

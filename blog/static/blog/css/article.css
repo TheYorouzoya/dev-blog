@@ -1,4 +1,6 @@
 #article {
+    width: 100%;
+    
     .ql-code-block-container {
         background-color: var(--codeblock-bg-light);
         padding: 15px;
