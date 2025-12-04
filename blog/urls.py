@@ -1,22 +1,25 @@
-from django.urls import path
+from django.urls import path, include
 
-from . import views
+from .views import article_views, dashboard_views, topic_views, api_views
 
 app_name = "blog"
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("dashboard/", views.dashboard, name="dashboard"),
-    path("articles/<str:article_slug>/", views.articles, name="articles"),
-    path("articles/<str:article_slug>/edit/", views.edit, name="edit"),
-    path("articles/<int:article_id>/delete/", views.article_delete, name="article_delete"),
-    path("drafts/<int:article_id>/", views.drafts, name="drafts"),
-    path("write/", views.write, name="write"),
-    path("topics/", views.all_topics, name="all_topics"),
-    path("topics/<str:topic_slug>/", views.topic, name="topic"),
+    path("", article_views.index, name="index"),
+    path("dashboard/", dashboard_views.dashboard, name="dashboard"),
+
+    # Articles
+    path("articles/<str:article_slug>/", article_views.articles, name="articles"),
+    path("articles/<str:article_slug>/edit/", article_views.edit, name="edit"),
+    path("articles/<int:article_id>/delete/", article_views.article_delete, name="article_delete"),
+
+    # Drafts
+    path("drafts/<int:article_id>/", article_views.drafts, name="drafts"),
+    path("write/", article_views.write, name="write"),
+    
+    # Topics
+    path("topics/", topic_views.all_topics, name="all_topics"),
+    path("topics/<str:topic_slug>/", topic_views.topic, name="topic"),
 
     # API ROUTES
-    path("api/images/upload/", views.upload_image, name="upload_image"),
-    path("api/articles/autosave/", views.autosave, name="autosave_article"),
-    path("api/search/articles/", views.search_article, name="search_article"),
-    path("api/topics/", views.topics_api, name="topics_api"),
+    path("api/", include('blog.api_urls')),
 ]
