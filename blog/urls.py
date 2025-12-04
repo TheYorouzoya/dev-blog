@@ -14,6 +14,7 @@ urlpatterns = [
 
     # Drafts
     path("drafts/<int:article_id>/", article_views.drafts, name="drafts"),
+    path("drafts/<int:article_id>/preview", article_views.preview, name="preview"),
     path("write/", article_views.write, name="write"),
     
     # Topics

@@ -87,7 +87,7 @@ select > option {
     font-family: 'roboto' !important;
     
 
-    p, ul, ol {
+    p, ul, ol, blockquote {
         font-size: 1rem;
         margin-block-start: 1em;
         margin-block-end: 1em;

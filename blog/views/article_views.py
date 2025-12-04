@@ -12,7 +12,7 @@ from blog.forms import ArticleForm, TopicForm
 
 
 def index(request):
-    ARTICLES_PER_PAGE = 5
+    ARTICLES_PER_PAGE = 3
     page_number = request.GET.get('page', 1)
     articles = Article.objects.filter(status=Article.Status.PUBLISHED)
     paginator = Paginator(articles, ARTICLES_PER_PAGE)
@@ -41,7 +41,12 @@ def articles(request, article_slug):
     else:
         article = get_object_or_404(Article, slug=article_slug)
 
-    return render(request, "blog/article.html", {"article": article})
+    return render(request, 'blog/article.html', {"article": article})
+
+
+def preview(request, article_id):
+    article = get_object_or_404(Article, pk=article_id)
+    return render(request, 'blog/article.html', {"article": article})
 
 
 def _article_editor(request, article, is_draft=False):
