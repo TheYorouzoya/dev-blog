@@ -10,7 +10,9 @@
 <article id="article">
     <div class="article-heading">
         <h1 class="article-title">{{ article.title }}</h1>
+        {% if user.is_authenticated %}
         <span class="button hvr-shutter-out-vertical"><a href="{% url 'blog:edit' article.slug %}">Edit</a></span>
+        {% endif %}
     </div>
     <div class="article-info">
         <div class="article-date">Published: {{ article.published_at|date:"F j, Y" }}</div>
