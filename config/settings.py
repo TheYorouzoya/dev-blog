@@ -16,6 +16,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+ON_PYTHONANYWHERE = 'theyorouzoya.pythonanywhere.com' in os.environ
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -24,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(+o@e6^zxcbn0=f+7bfuth$qs27$i8*+*z#h3i-0&d*(a&ooka'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not ON_PYTHONANYWHERE
 
 ALLOWED_HOSTS = ['theyorouzoya.pythonanywhere.com']
 
@@ -37,10 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'livereload',
     'django.contrib.staticfiles',
     'blog',
-]
+]    
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,8 +50,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'livereload.middleware.LiveReloadScript',
 ]
+
+if not ON_PYTHONANYWHERE:
+    INSTALLED_APPS += [
+        'livereload',
+    ]
+
+    MIDDLEWARE += [
+        'livereload.middleware.LiveReloadScript',
+    ]
 
 ROOT_URLCONF = 'config.urls'
 
