@@ -64,6 +64,10 @@ Work in progress. Currently displays all topics and their respective article cou
 
 Work in progress. Currently redirects to the homepage.
 
+### Mobile Layout
+
+Work in progress.
+
 ## Deployment
 
 As of this writing (05/12/2025), a version of the blog is deployed on PythonAnywhere at the following link: https://theyorouzoya.pythonanywhere.com/
