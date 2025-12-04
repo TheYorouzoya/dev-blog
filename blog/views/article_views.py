@@ -2,7 +2,7 @@ import json
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
-from django.core.paginator import Paginator, EmptyPage
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 from django.db.models import Count
@@ -21,7 +21,7 @@ def index(request):
     
     try:
         page_obj = paginator.page(page_number)
-    except EmptyPage as e:
+    except (EmptyPage, PageNotAnInteger) as e:
         context = {
             "message": str(e),
             "topics": all_topics,
