@@ -144,7 +144,7 @@ select > option {
         display: flex;
         justify-content: space-between;
         box-sizing: border-box;
-        align-items: right;
+        align-items: center;
         margin-top: 10px;
 
         #article-save-status {
@@ -152,7 +152,16 @@ select > option {
             font-style: italic;
             padding: 10px;
         }
-    }
+
+        .form-footer-left {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            a {
+                text-decoration: inherit;
+            }
+        }
+    }    
 }
 
 #delete-dialog {

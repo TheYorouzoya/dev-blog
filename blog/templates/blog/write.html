@@ -31,13 +31,16 @@
             </div>
             
             <div class="form-footer">
-                <span class="button delete" onclick="document.getElementById('delete-dialog').showModal()">
-                    {% if form.status.value == STATUS.PUBLISHED %}
-                    Delete Article
-                    {% else %}
-                    Delete Draft
-                    {% endif %}
-                </span>
+                <div class="form-footer-left">
+                    <span class="button delete" onclick="document.getElementById('delete-dialog').showModal()">
+                        {% if form.status.value == STATUS.PUBLISHED %}
+                        Delete Article
+                        {% else %}
+                        Delete Draft
+                        {% endif %}
+                    </span>
+                    <div class="button hvr-shutter-out-vertical"><a href="{% url "blog:preview" article_id %}">Preview</a></div>
+                </div>
                 <div>
                     <span id="article-save-status"></span>
                     <div id="save-article" class="button hvr-shutter-out-vertical">Save</div>

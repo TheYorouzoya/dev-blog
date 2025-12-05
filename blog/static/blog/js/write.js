@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
         [{ 'align': [] }],
 
-        ['clean']                                         // remove formatting button
+        ['clean'],                                         // remove formatting button
     ];
     const quill = new Quill('#editor', {
         modules: {

@@ -11,7 +11,9 @@
     <div class="article-heading">
         <h1 class="article-title">{{ article.title }}</h1>
         {% if user.is_authenticated %}
+        {% if article.slug %}
         <span class="button hvr-shutter-out-vertical"><a href="{% url 'blog:edit' article.slug %}">Edit</a></span>
+        {% endif %}
         {% endif %}
     </div>
     <div class="article-info">
