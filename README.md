@@ -60,6 +60,8 @@ Work in progress. Currently displays all topics and their respective article cou
 
 ![Topics page](./docs/images/Topics.png)
 
+Clicking on a Topic will take you to the related Topic page. That one has the same layout as the home page, except the articles are filtered by the selected topic.
+
 ### About
 
 Work in progress. Currently redirects to the homepage.
