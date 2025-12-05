@@ -46,6 +46,7 @@ class Article(models.Model):
         PUBLISHED = "PU", _("Published")
 
     title = models.CharField(max_length=250)
+    views = models.PositiveIntegerField(default=0)
     slug = models.SlugField(max_length=255, unique=True)
     content = models.TextField()
     excerpt = models.TextField(max_length=200, blank=True)

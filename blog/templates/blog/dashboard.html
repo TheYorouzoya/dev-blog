@@ -15,6 +15,7 @@
     {% endif %}
 
     {% if page_obj %}
+        <div class="dashboard-container">
         {% for article in page_obj %}
             <article class="article-card">
                 <h2>
@@ -30,9 +31,10 @@
                     {% endif %}
                 </a></h2>
                 <div>{{ article.topic }}</div>
-                <div>{{ article.excerpt }}</div>
+                <div>Views: {{ article.views }} </div>
             </article>
         {% endfor %}
+        </div>
         <div class="pagination">
             <span class="step-links">
                 {% if page_obj.has_previous %}

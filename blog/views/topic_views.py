@@ -23,10 +23,26 @@ def topic(request, topic_slug):
     articles = Article.objects.filter(topic=topic)
     paginator = Paginator(articles, ARTICLES_PER_PAGE)
 
+    top_articles = Article.objects.filter(topic=topic).order_by('-views')[:5]
+
     try:
         page_obj = paginator.page(page_num)
     except EmptyPage as e:
-        return render(request, 'blog/index.html', {"message": str(e)})
+        context = {
+            "message": str(e),
+            "topic": topic,
+            "sidebar": {
+                "top_articles": top_articles,
+            },
+        }
+        return render(request, 'blog/index.html', context)
 
-    return render(request, 'blog/index.html', { "page_obj": page_obj })
+    context = {
+        "page_obj": page_obj,
+        "topic": topic,
+        "sidebar": {
+            "top_articles": top_articles,
+        },
+    }
+    return render(request, 'blog/index.html', context)
 

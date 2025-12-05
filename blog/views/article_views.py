@@ -5,7 +5,7 @@ from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.http import require_POST
 from django.utils import timezone
-from django.db.models import Count
+from django.db.models import Count, F
 
 from blog.models import Article, ArticleImage, Topic
 from blog.forms import ArticleForm, TopicForm
@@ -18,19 +18,26 @@ def index(request):
     paginator = Paginator(articles, ARTICLES_PER_PAGE)
 
     all_topics = Topic.objects.annotate(article_count=Count('article'))
+    top_articles = Article.objects.order_by('-views')[:5]
     
     try:
         page_obj = paginator.page(page_number)
     except (EmptyPage, PageNotAnInteger) as e:
         context = {
             "message": str(e),
-            "topics": all_topics,
+            "sidebar":  {
+                "topics": all_topics,
+                "top_articles": top_articles,
+            },
         }
         return render(request, 'blog/index.html', context)
     
     context = {
         "page_obj": page_obj,
-        "topics": all_topics,
+        "sidebar":  {
+            "topics": all_topics,
+            "top_articles": top_articles,
+        },
     }
     return render(request, 'blog/index.html', context)
 
@@ -40,6 +47,9 @@ def articles(request, article_slug):
         article = get_object_or_404(Article, slug=article_slug, status=Article.Status.PUBLISHED)
     else:
         article = get_object_or_404(Article, slug=article_slug)
+
+    article.views = F('views') + 1
+    article.save(update_fields=['views'])
 
     return render(request, 'blog/article.html', {"article": article})
 

@@ -9,15 +9,30 @@
         </div>
     </section>
 
+    {% if sidebar.top_articles %}
+    <section>
+        <h2 class="content-heading">Popular Articles</h2>
+        <div class="popular-article-card">
+            {% for article in sidebar.top_articles %}
+                <a class="sidebar-row" href="{% url "blog:articles" article.slug %}">
+                    {{ article.title }}
+                </a>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if sidebar.topics %}
     <section>
         <h2 class="content-heading">Topics</h2>
         <div class="topics-card">
-            {% for topic in topics %}
-                <a class="topics-card-row" href="{% url "blog:topic" topic.slug %}">
+            {% for topic in sidebar.topics %}
+                <a class="topics-card-row sidebar-row" href="{% url "blog:topic" topic.slug %}">
                     <span>{{ topic.name }}</span>
                     <span>{{ topic.article_count }}</span>
                 </a>
             {% endfor %}
         </div>
     </section>
+    {% endif %}
 </div>

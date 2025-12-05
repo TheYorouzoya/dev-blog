@@ -12,6 +12,11 @@
 {% block body %}
 <div class="blog-content-container">
     <div class="content-left">
+        {% if topic %}
+        <h2 class="content-heading">Topic: {{ topic.name }}</h2>
+        <div class="topic-description">{{ topic.description }}</div>
+        {% endif %}
+
         <h2 class="content-heading">Latest Articles</h2>
             {% if message %}
                 <div>{{ message }}</div>
@@ -46,10 +51,12 @@
                     {% endif %}
                 </span>
             </div>
+        {% else %}
+        <div style="text-align: center;">Nothing here yet.</div>
         {% endif %}
         </div>
         <div class="content-right">
-        {% include "blog/sidebar.html" with topics=topics %}
+        {% include "blog/sidebar.html" with sidebar=sidebar %}
         </div>
     </div>
 {% endblock %}

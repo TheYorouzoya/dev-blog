@@ -36,6 +36,10 @@ blockquote {
     padding-left: 16px;
 }
 
+a {
+    text-decoration: inherit;
+}
+
 #blog-container {
     background: transparent;
     background-color: rgba(16, 81, 107, 0.1);
@@ -307,17 +311,25 @@ nav {
     .topics-card {
         .topics-card-row {
             display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid white;
-            padding: 10px 5px;
-            text-decoration: inherit;
-            color: var(--text);
-        }
-
-        .topics-card-row:hover {
-            background-color: var(--hover-bg-light);
+            justify-content: space-between;   
         }
     }
+
+    .popular-article-card {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar-row {
+        border-bottom: 1px solid white;
+        padding: 10px 5px;
+        color: var(--text);
+    }
+    
+    .sidebar-row:hover {
+        background-color: var(--hover-bg-light);
+    }
+
 }
 
 .pagination > .step-links {
