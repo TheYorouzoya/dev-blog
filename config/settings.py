@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+from dotenv import load_dotenv
 
 from pathlib import Path
 
@@ -32,6 +33,7 @@ if not DEBUG:
 else:
     ALLOWED_HOSTS = []
 
+load_dotenv(BASE_DIR / '.env')
 
 # Application definition
 
@@ -141,3 +143,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LICHESS_API_KEY = os.getenv('LICHESS_KEY', '')

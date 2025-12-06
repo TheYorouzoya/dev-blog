@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from .views import article_views, dashboard_views, topic_views
+from .views import article_views, dashboard_views, topic_views, about_views
 
 app_name = "blog"
 urlpatterns = [
@@ -20,6 +20,9 @@ urlpatterns = [
     # Topics
     path("topics/", topic_views.all_topics, name="all_topics"),
     path("topics/<str:topic_slug>/", topic_views.topic, name="topic"),
+
+    # About
+    path("about/", about_views.about, name="about"),
 
     # API ROUTES
     path("api/", include('blog.api_urls')),
