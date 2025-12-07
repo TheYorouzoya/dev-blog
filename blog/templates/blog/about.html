@@ -1,0 +1,161 @@
+{% extends "blog/layout.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'blog/css/about.css' %}">
+{% endblock css %}
+
+{% block body %}
+    <div id="about-me">
+        <div class="my-card">
+            <div class="my-image">
+                <img src="{% static "blog/about/shrinked02_v2_square_small.png" %}">
+            </div>
+            <div class="my-info">
+                <p>Hi! I'm</p>
+                <div class="logo">
+                    <svg width='600' height='200'>
+                    <filter id='money'>
+                        <feMorphology in='SourceGraphic' operator='dilate' radius='2' result='expand'/>
+
+                        <feOffset in='expand' dx='1' dy='1' result='shadow_1'/>
+                        <feOffset in='expand' dx='2' dy='2' result='shadow_2'/>
+                        <feOffset in='expand' dx='3' dy='3' result='shadow_3'/>
+                        <feOffset in='expand' dx='4' dy='4' result='shadow_4'/>
+                        <feOffset in='expand' dx='5' dy='5' result='shadow_5'/>
+                        <feOffset in='expand' dx='6' dy='6' result='shadow_6'/>
+                        <feOffset in='expand' dx='7' dy='7' result='shadow_7'/>
+
+                        <feMerge result='shadow'>
+                        <feMergeNode in='expand'/>
+                        <feMergeNode in='shadow_1'/>
+                        <feMergeNode in='shadow_2'/>
+                        <feMergeNode in='shadow_3'/>
+                        <feMergeNode in='shadow_4'/>
+                        <feMergeNode in='shadow_5'/>
+                        <feMergeNode in='shadow_6'/>
+                        <feMergeNode in='shadow_7'/>
+                        </feMerge>
+
+                        <feFlood flood-color='#ebe7e0'/>
+                        <feComposite in2='shadow' operator='in' result='shadow'/>
+
+                        <feMorphology in='shadow' operator='dilate' radius='1' result='border'/>
+                        <feFlood flood-color='#35322a' result='border_color'/>
+                        <feComposite in2='border' operator='in' result='border'/>
+
+                        <feOffset in='border' dx='1' dy='1' result='secondShadow_1'/>
+                        <feOffset in='border' dx='2' dy='2' result='secondShadow_2'/>
+                        <feOffset in='border' dx='3' dy='3' result='secondShadow_3'/>
+                        <feOffset in='border' dx='4' dy='4' result='secondShadow_4'/>
+                        <feOffset in='border' dx='5' dy='5' result='secondShadow_5'/>
+                        <feOffset in='border' dx='6' dy='6' result='secondShadow_6'/>
+                        <feOffset in='border' dx='7' dy='7' result='secondShadow_7'/>
+                        <feOffset in='border' dx='8' dy='8' result='secondShadow_8'/>
+                        <feOffset in='border' dx='9' dy='9' result='secondShadow_9'/>
+                        <feOffset in='border' dx='10' dy='10' result='secondShadow_10'/>
+                        <feOffset in='border' dx='11' dy='11' result='secondShadow_11'/>
+
+                        <feMerge result='secondShadow'>
+                        <feMergeNode in='border'/>
+                        <feMergeNode in='secondShadow_1'/>
+                        <feMergeNode in='secondShadow_2'/>
+                        <feMergeNode in='secondShadow_3'/>
+                        <feMergeNode in='secondShadow_4'/>
+                        <feMergeNode in='secondShadow_5'/>
+                        <feMergeNode in='secondShadow_6'/>
+                        <feMergeNode in='secondShadow_7'/>
+                        <feMergeNode in='secondShadow_8'/>
+                        <feMergeNode in='secondShadow_9'/>
+                        <feMergeNode in='secondShadow_10'/>
+                        <feMergeNode in='secondShadow_11'/>
+                        </feMerge>
+
+                        <feImage x='0' y='0' width='600' height='200' xlink:href='https://s3-us-west-2.amazonaws.com/s.cdpn.io/78779/stripes.svg'/>
+                        <feComposite in2='secondShadow' operator='in' result='secondShadow'/>
+
+                        <feMerge>
+                        <feMergeNode in='secondShadow'/>
+                        <feMergeNode in='border'/>
+                        <feMergeNode in='shadow'/>
+                        <feMergeNode in='SourceGraphic'/>
+                        </feMerge>
+                    </filter>
+
+                    <text dominant-baseline='middle' text-anchor='middle' x='50%' y='50%'>
+                        RATNESH
+                    </text>
+                    </svg>
+                </div>
+
+                <p>A self-taught developer.</p>
+                <p>I like computers, puzzles, building things, working out, 
+                    and a little bit of reading and writing.</p>
+                <p>This blog is my journal as I venture out into the field of programming.
+                    Though, the things I write about here won't be limited to just that. But I'll keep
+                    the frequency low seeing how this is labeled as my "Tech Blog".
+                </p>
+            </div>
+        </div>
+        
+        <section class="socials">
+            <div class="socials-container">
+                <div class="social-heading">My Socials</div>
+                <div class="social-links">
+                    <a id="social-github" href="https://github.com/TheYorouzoya">
+                        <div class="github-logo">
+                            <img src="{% static "blog/about/github-mark-white.png" %}">
+                            <div>GitHub</div>
+                        </div>
+                    </a>
+                    <a id="social-linkedin" href="https://www.linkedin.com/in/ratnesh-house/">
+                        <div class="linkedin-logo">
+                            <div>Linked</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+                                <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% if github_card %}
+            <div class="github-card">
+            {{ github_card|safe }}
+            </div>
+            {% endif %}
+        </section>
+        
+        <div class="footer-quote">
+            <p>While reading, I often like to keep excerpts of lines and pragraphs I really like in
+                different Google docs. Since we're talking computers, let's go with something opposite:
+            </p>
+            <blockquote>
+                <p>Art is a kind of innate drive that seizes a human being and makes him its instrument.
+                The artist is not a person endowed with free will who seeks his own ends, but one who allows art to realize its purposes through him.
+                As a human being he may have moods and a will and personal aims, but as an artist he is "man'' in a 
+                higher sense—he is “collective man”—one who carries and shapes the unconscious, psychic life of mankind. 
+                To perform this difficult office it is sometimes necessary for him to sacrifice happiness and everything 
+                that makes life worth living for the ordinary human being.
+                </p>
+                <p style="text-align: right;">~ C.G. Jung (Modern Man In Search Of A Soul)</p>
+            </blockquote>
+        </div>
+
+        {% if puzzle_stats %}
+        <div class="chess">
+            <div class="chess-puzzle">
+                <p>I also like playing chess. But mostly just the puzzle part. </p>
+                <p>Not the part where you memorize dozens of lines per opening.</p>
+                <p>Anyway, try one:</p>
+                <iframe src="https://lichess.org/training/frame?theme=blue&bg=dark" style="width: 430px; aspect-ratio: 10/11;" allowtransparency="true" frameborder="0"></iframe>
+            </div>
+            <div class="puzzle-stats">
+                <p>My Lichess stats (updates daily):</p>
+                <p>Puzzles solved: {{ puzzle_stats.games }}</p>
+                <p>Puzzle rating: {{ puzzle_stats.rating }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+{% endblock body %}
