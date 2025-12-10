@@ -109,14 +109,14 @@ class ArticleImage(models.Model):
     image = models.ImageField(upload_to='images/')
 
 @receiver(post_delete, sender=ArticleImage)
-def auto_delete_image_file_on_delete(sender, instance, **kwargs):
+def auto_delete_article_image_file_on_delete(sender, instance, **kwargs):
     if instance.image:
         if os.path.isfile(instance.image.path):
             os.remove(instance.image.path)
 
 
 @receiver(post_delete, sender=Article)
-def auto_delete_image_file_on_delete(sender, instance, **kwargs):
+def auto_delete_article_featured_image_file_on_delete(sender, instance, **kwargs):
     if instance.featured_image:
         if os.path.isfile(instance.featured_image.path):
             os.remove(instance.featured_image.path)
